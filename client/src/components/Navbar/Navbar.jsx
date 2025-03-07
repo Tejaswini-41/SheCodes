@@ -98,10 +98,14 @@ const Navbar = () => {
               </li>
             ))}
             <li className="more-dropdown" ref={moreDropdownRef}>
-              <button onClick={toggleMoreDropdown} className={isMoreActive() ? 'active' : ''}>
+              <Link 
+                to="#"
+                onClick={toggleMoreDropdown} 
+                className={isMoreActive() ? 'active' : ''}
+              >
                 <i className="fas fa-ellipsis-h"></i>
                 <span>More</span>
-              </button>
+              </Link>
               {showMoreDropdown && (
                 <ul className="dropdown-menu">
                   {moreLinks.map((link, index) => (

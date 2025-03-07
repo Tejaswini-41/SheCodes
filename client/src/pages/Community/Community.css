@@ -17,7 +17,7 @@
   background: linear-gradient(
     rgba(0, 0, 0, 0.5), 
     rgba(224, 33, 138, 0.7)
-  ), url('/Images/background.png');
+  ), url('../../../public/Images/background.png');
   background-size: cover;
   background-position: center;
   color: white;
@@ -27,25 +27,26 @@
 }
 
 .community-hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .community-hero p {
   font-size: 1.2rem;
-  opacity: 0.9;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.community-tabs {
+.community-navigation {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 3rem;
 }
 
-.tab-btn {
+.nav-btn {
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 25px;
@@ -57,7 +58,7 @@
   color: #666;
 }
 
-.tab-btn.active {
+.nav-btn.active {
   background: #e0218a;
   color: white;
 }
@@ -72,23 +73,34 @@
 .create-post-btn,
 .become-mentor-btn,
 .create-event-btn {
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 2rem;
   background: #e0218a;
   color: white;
   border: none;
   border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.2);
 }
 
-.become-mentor-btn {
+.create-post-btn:hover,
+.become-mentor-btn:hover,
+.create-event-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(224, 33, 138, 0.3);
+  background: #d01f7f;
+}
+
+/* .become-mentor-btn {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
+} */
 
 .discussion-card, .mentor-card, .event-card {
   background: white;
@@ -96,10 +108,12 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
 }
 
 .discussion-card:hover, .mentor-card:hover, .event-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(224, 33, 138, 0.15);
 }
 
 .discussion-avatar img {
@@ -223,18 +237,43 @@
   transition: background 0.3s ease;
 }
 
+.connect-btn {
+  width: auto;
+  padding: 0.6rem 1.2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.connect-btn:hover {
+  background: #d01f7f;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .community-page {
     padding: 0 1rem 3rem 1rem;
   }
 
-  .community-tabs {
+  .community-hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .community-hero h1 {
+    font-size: 2rem;
+  }
+
+  .community-navigation {
     flex-wrap: wrap;
   }
 
-  .tab-btn {
-    flex: 1;
-    min-width: 120px;
+  .nav-btn {
+    width: 100%;
   }
 }
 
@@ -315,4 +354,14 @@
 
 .mentorship-section {
   padding: 20px;
+}
+
+/* Cards Grid Layout */
+.discussions-list,
+.mentors-grid,
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }

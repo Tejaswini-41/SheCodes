@@ -14,6 +14,7 @@ import Safety from './pages/Safety/Safety';
 import Leadership from './pages/Leadership/Leadership';
 import Contact from './pages/Contact/Contact';
 import Finance from './pages/Finance/Finance';
+import AdminDashboard from './pages/Dashboard/AdminDashboard';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/dashboard/leadership" element={<Leadership />} />
           <Route path="/dashboard/finance" element={<Finance />} />
           <Route path="/dashboard/contact" element={<Contact />} />
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>

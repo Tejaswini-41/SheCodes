@@ -20,16 +20,14 @@ const Login = () => {
     
     try {
       const { email, password } = formData;
-      await login(email, password);
-
-      // If login successful, get stored user data
-      const storedData = localStorage.getItem('userData');
-      if (storedData) {
-        const userData = JSON.parse(storedData);
-        console.log('Logged in user:', userData); // For debugging
+      const userData = await login(email, password);
+      
+      // Redirect based on user role
+      if (userData && userData.role === 'admin') {
+        navigate('/adminDashboard');
+      } else {
+        navigate('/dashboard');
       }
-
-      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Failed to login');
       console.error('Login error:', err);

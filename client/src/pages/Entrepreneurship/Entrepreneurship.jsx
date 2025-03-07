@@ -4,7 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import './Entrepreneurship.css';
 
 const Entrepreneurship = () => {
-  const [activeTab, setActiveTab] = useState('resources');
+  const [activeTab, setActiveTab] = useState('leaders');
 
   const mentors = [
     {

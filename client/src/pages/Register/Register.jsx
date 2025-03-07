@@ -6,7 +6,8 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'user' // Default role is user
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,9 +21,9 @@ const Register = () => {
     setError('');
     
     try {
-      const { name, email, password } = formData;
-      await register(name, email, password);
-      navigate('/dashboard');
+      const { name, email, password, role } = formData;
+      await register(name, email, password, role);
+      navigate('/login');
     } catch (err) {
       setError(err.message || 'Failed to register');
       console.error('Registration error:', err);
@@ -76,6 +77,31 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="form-group">
+          <label>Account Type</label>
+          <div className="role-selection">
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="user"
+                checked={formData.role === 'user'}
+                onChange={handleChange}
+              />
+              User
+            </label>
+            <label style={{marginLeft: '20px'}}>
+              <input
+                type="radio"
+                name="role"
+                value="admin"
+                checked={formData.role === 'admin'}
+                onChange={handleChange}
+              />
+              Admin
+            </label>
+          </div>
         </div>
         <button type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}

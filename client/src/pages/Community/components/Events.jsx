@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const EVENT_API_URL = 'http://localhost:5000/api/events';
 
-const Events = () => {
+const Events = ({ isAdmin, isLoggedIn }) => {
   const [showEventForm, setShowEventForm] = useState(false);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,6 +41,7 @@ const Events = () => {
       setEvents(response.data);
     } catch (err) {
       setError('Failed to load events');
+      console.error('Error loading events:', err);
     } finally {
       setLoading(false);
     }
@@ -70,22 +71,35 @@ const Events = () => {
       fetchEvents();
     } catch (err) {
       setError('Failed to create event');
+      console.error('Error creating event:', err);
     }
+  };
+  
+  const handleJoinEvent = (eventId) => {
+    if (!isLoggedIn) {
+      alert('Please log in to join events');
+      return;
+    }
+    
+    // Here you would make an API call to register the user for the event
+    alert('You have joined this event!');
   };
 
   return (
     <section className="events-section">
       <div className="section-header">
         <h2>Upcoming Events</h2>
-        <button className="create-event-btn" onClick={() => setShowEventForm(true)}>
-          Create Event
-        </button>
+        {isAdmin && (
+          <button className="create-event-btn" onClick={() => setShowEventForm(true)}>
+            Create Event
+          </button>
+        )}
       </div>
       
       {loading && <div>Loading events...</div>}
       {error && <div className="error-message">{error}</div>}
       
-      {showEventForm && (
+      {showEventForm && isAdmin && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>Create a New Event</h2>
@@ -166,7 +180,11 @@ const Events = () => {
               <p><i className="far fa-clock"></i> {event.time}</p>
               <p><i className="fas fa-map-marker-alt"></i> {event.location}</p>
               <p><i className="fas fa-users"></i> {event.attendees} attending</p>
-              <button className="join-event-btn">Join Event</button>
+              {isLoggedIn && (
+                <button className="join-event-btn" onClick={() => handleJoinEvent(event._id)}>
+                  Join Event
+                </button>
+              )}
             </div>
           </div>
         ))}

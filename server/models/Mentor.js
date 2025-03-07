@@ -28,6 +28,11 @@ const mentorSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: 'https://cdn.prod.website-files.com/5ce11396d0cadb67eb2cac0e/621e3dddf8077a0ce7a409ba_Professional%20mentor.pngg'
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending'
   }
 }, {
   timestamps: true

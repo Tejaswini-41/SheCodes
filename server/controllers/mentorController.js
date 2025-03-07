@@ -33,44 +33,53 @@ export const getPendingMentorRequests = async (req, res) => {
   }
 };
 
-// Create new mentor request
+// Update the createMentor function
+
 export const createMentor = async (req, res) => {
   try {
-    console.log('Creating new mentor request with data:', req.body);
+    console.log('Creating mentor with data:', req.body);
     
-    // Extract fields from request body
-    const { name, email, role, company, expertise, experience, bio, avatar, linkedinUrl } = req.body;
+    // Check required fields - add experience to required fields
+    const { name, email, role, company, expertise, bio, experience } = req.body;
     
-    // Check if mentor with this email already exists
-    const existingMentor = await Mentor.findOne({ email });
-    if (existingMentor) {
-      return res.status(400).json({ message: 'A mentor with this email already exists' });
+    if (!name || !email || !role || !company || !expertise || !bio) {
+      console.warn('Missing required fields:', { name, email, role, company, expertise, bio });
+      return res.status(400).json({ message: 'Missing required fields' });
     }
     
-    // Create new mentor request (with pending status by default)
-    const newMentor = new Mentor({
-      name,
-      email,
-      role,
-      company,
-      expertise: Array.isArray(expertise) ? expertise : expertise.split(',').map(item => item.trim()),
-      experience,
-      bio,
-      avatar,
-      linkedinUrl,
-      userId: req.user ? req.user._id : null
+    // Check for experience field specifically
+    if (experience === undefined || experience === null) {
+      console.warn('Missing required experience field');
+      return res.status(400).json({ message: 'Experience field is required' });
+    }
+    
+    // Check if email already exists as a mentor (pending or approved)
+    const existingMentor = await Mentor.findOne({ email });
+    if (existingMentor) {
+      return res.status(400).json({ 
+        message: 'You have already applied to be a mentor. Please wait for admin review.' 
+      });
+    }
+    
+    // Create the mentor with default pending status
+    const mentor = new Mentor({
+      ...req.body,
+      // Default to 1 year experience if not provided
+      experience: experience || 1,
+      status: 'pending',
+      createdAt: new Date()
     });
     
-    await newMentor.save();
-    console.log('New mentor request created:', newMentor);
+    await mentor.save();
+    console.log('New mentor request created:', mentor);
     
-    res.status(201).json({ 
-      message: 'Mentor request submitted successfully. It will be reviewed by our team.',
-      mentor: newMentor 
+    return res.status(201).json({ 
+      message: 'Your mentor application has been submitted for review',
+      mentor
     });
   } catch (error) {
-    console.error('Error creating mentor request:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error creating mentor:', error);
+    return res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 

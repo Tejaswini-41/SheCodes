@@ -91,6 +91,7 @@ const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
+  // Make sure you're correctly exposing isAuthenticated
   const value = {
     user, 
     token, 
@@ -98,7 +99,7 @@ const AuthProvider = ({ children }) => {
     login, 
     register, 
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user  // This should be true when user exists
   };
 
   return (

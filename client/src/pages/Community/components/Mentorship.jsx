@@ -5,22 +5,26 @@ import { AuthContext } from '../../../context/AuthContext';
 const MENTOR_API_URL = 'http://localhost:5000/api/mentors';
 
 const Mentorship = ({ isAdmin, isLoggedIn }) => {
-  const { user } = useContext(AuthContext); // Add this to get the user context
+  const { user } = useContext(AuthContext); // Get user from context instead of props
+  console.log('Mentorship component props:', { isAdmin, isLoggedIn, userFromContext: !!user });
+  
   const [showMentorForm, setShowMentorForm] = useState(false);
   const [mentors, setMentors] = useState([]);
   const [mentorRequests, setMentorRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [mentorForm, setMentorForm] = useState({
-    name: '',
+    name: user?.name || '',
+    email: user?.email || '',
     role: '',
     company: '',
     expertise: '',
-    availability: '',
+    experience: 1, // Default to 1 year
+    availability: '2 slots available',
     linkedinUrl: 'https://www.linkedin.com/in/',
     avatar: '',
     imageFile: null,
-    status: 'pending' // Add status field for pending/approved
+    bio: ''
   });
   const [useImageUrl, setUseImageUrl] = useState(true); // Default to URL input instead of file upload
 
@@ -72,73 +76,67 @@ const Mentorship = ({ isAdmin, isLoggedIn }) => {
     fetchMentors();
   }, [isAdmin]);
 
+  useEffect(() => {
+    console.log('Rendering Mentorship with:', { 
+      isLoggedIn, 
+      isAdmin, 
+      showMentorForm: isLoggedIn && !isAdmin && !showMentorForm 
+    });
+  }, [isLoggedIn, isAdmin, showMentorForm]);
+
   const handleMentorSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     
     try {
-      // Process expertise
-      const expertiseArray = mentorForm.expertise
-        .split(',')
-        .map(item => item.trim())
-        .filter(item => item !== '');
+      // Make sure we have the user's email
+      if (!user?.email) {
+        throw new Error('User email is required. Please ensure you are properly logged in.');
+      }
       
-      // Create mentor data object
+      console.log('Submitting mentor form with data:', mentorForm);
+      
+      // Convert expertise to array if it's a string
+      const expertiseArray = Array.isArray(mentorForm.expertise) 
+        ? mentorForm.expertise 
+        : mentorForm.expertise.split(',').map(item => item.trim());
+      
+      // Create the payload with required fields
       const mentorData = {
-        name: mentorForm.name,
+        name: mentorForm.name || user.name,
+        email: user.email, // Use the logged in user's email
         role: mentorForm.role,
         company: mentorForm.company,
         expertise: expertiseArray,
-        availability: mentorForm.availability,
-        linkedinUrl: mentorForm.linkedinUrl || 'https://www.linkedin.com/in/',
+        experience: parseInt(mentorForm.experience) || 1, // Parse to integer
+        availability: mentorForm.availability || '2 slots available',
+        bio: mentorForm.bio || `${mentorForm.role} at ${mentorForm.company}`,
+        linkedinUrl: mentorForm.linkedinUrl,
+        avatar: mentorForm.avatar || 'https://randomuser.me/api/portraits/women/1.jpg',
         status: 'pending'
       };
       
-      // Only include avatar if using URL option or we have a valid avatar URL
-      if (useImageUrl && mentorForm.avatar) {
-        mentorData.avatar = mentorForm.avatar;
-      } else if (!useImageUrl) {
-        // Use default avatar or let the server assign one
-        // The server already has a default avatar setting in the Mentor model
-      }
-
-      // Create headers
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
+      console.log('Formatted mentor data to submit:', mentorData);
       
-      if (user && user.token) {
-        config.headers['Authorization'] = `Bearer ${user.token}`;
-      }
+      // Send the request to create a mentor
+      const response = await axios.post(MENTOR_API_URL, mentorData);
       
-      const response = await axios.post(MENTOR_API_URL, mentorData, config);
-      console.log('Mentor application submitted:', response.data);
-
+      console.log('Mentor submission response:', response.data);
+      
+      // Show success message
+      alert('Your mentor application has been submitted successfully! Our admin will review it soon.');
+      
+      // Close the form
       setShowMentorForm(false);
-      alert('Your mentor application has been submitted and is awaiting approval!');
       
-      // Reset form
-      setMentorForm({
-        name: '',
-        role: '',
-        company: '',
-        expertise: '',
-        availability: '',
-        linkedinUrl: 'https://www.linkedin.com/in/',
-        avatar: '',
-        imageFile: null,
-        status: 'pending'
-      });
-      
-      // Refresh the mentors list
-      fetchMentors();
     } catch (err) {
       console.error('Error submitting mentor form:', err);
-      const errorMsg = err.response?.data?.message || err.message || 'Failed to submit mentor application';
-      setError(errorMsg);
+      
+      // Show a more detailed error message
+      const errorMessage = err.response?.data?.message || err.message || 'Failed to submit mentor application';
+      setError(errorMessage);
+      alert(`Error: ${errorMessage}`);
     } finally {
       setLoading(false);
     }
@@ -166,17 +164,83 @@ const Mentorship = ({ isAdmin, isLoggedIn }) => {
     }
   };
 
+  const handleSubmitMentorApplication = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Format the mentor data with proper expertise handling
+      const formattedData = {
+        ...mentorForm,
+        expertise: Array.isArray(mentorForm.expertise) ? 
+          mentorForm.expertise : 
+          mentorForm.expertise.split(',').map(item => item.trim())
+      };
+      
+      // If using image file upload, handle that here
+      if (!useImageUrl && mentorForm.imageFile) {
+        const formData = new FormData();
+        formData.append('avatar', mentorForm.imageFile);
+        
+        // Upload image first if needed
+        // const uploadResponse = await axios.post('your-upload-endpoint', formData);
+        // formattedData.avatar = uploadResponse.data.url;
+      }
+      
+      // Submit mentor application
+      const response = await axios.post(MENTOR_API_URL, formattedData);
+      
+      // Show success message
+      alert('Your mentor application has been submitted! Our team will review it soon.');
+      
+      // Reset form and hide it
+      setMentorForm({
+        name: '',
+        role: '',
+        company: '',
+        expertise: '',
+        availability: '',
+        linkedinUrl: 'https://www.linkedin.com/in/',
+        avatar: '',
+        imageFile: null,
+        bio: '',
+        status: 'pending'
+      });
+      setShowMentorForm(false);
+      
+      // Refresh mentors list
+      fetchMentors();
+      
+    } catch (err) {
+      console.error('Error submitting mentor application:', err);
+      setError('Failed to submit your application. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="mentorship-section">
       <div className="section-header">
         <h2>Available Mentors</h2>
-        {isLoggedIn && !isAdmin && (
-          <button 
-            className="become-mentor-btn" 
-            onClick={() => setShowMentorForm(true)}
-          >
-            Become a Mentor
-          </button>
+        
+        {/* Debug version with more explicit rendering */}
+        {isLoggedIn ? (
+          isAdmin ? (
+            <span className="admin-note">Admin users manage mentors in the admin panel</span>
+          ) : (
+            <button 
+              className="become-mentor-btn" 
+              onClick={() => setShowMentorForm(true)}
+            >
+              Become a Mentor
+            </button>
+          )
+        ) : (
+          <div className="login-prompt">
+            <p>Please <a href="/login">log in</a> to apply as a mentor</p>
+          </div>
         )}
       </div>
       
@@ -288,6 +352,17 @@ const Mentorship = ({ isAdmin, isLoggedIn }) => {
                 />
               </div>
               <div className="form-group">
+                <label>Experience (years)</label>
+                <input 
+                  type="number" 
+                  name="experience" 
+                  value={mentorForm.experience} 
+                  onChange={handleMentorInputChange}
+                  placeholder="e.g. 5"
+                  required
+                />
+              </div>
+              <div className="form-group">
                 <label>Availability</label>
                 <input 
                   type="text" 
@@ -307,6 +382,16 @@ const Mentorship = ({ isAdmin, isLoggedIn }) => {
                   onChange={handleMentorInputChange}
                   placeholder="e.g. https://www.linkedin.com/in/your-profile"
                 />
+              </div>
+              <div className="form-group">
+                <label>Email (from your account)</label>
+                <input 
+                  type="email" 
+                  value={user?.email || ''}
+                  disabled
+                  className="disabled-input"
+                />
+                <small className="form-help-text">We'll use your account email for communications</small>
               </div>
               <div className="form-group">
                 <label>Profile Image</label>
@@ -367,6 +452,18 @@ const Mentorship = ({ isAdmin, isLoggedIn }) => {
                     )}
                   </div>
                 )}
+              </div>
+              <div className="form-group">
+                <label>Years of Experience</label>
+                <input
+                  type="number"
+                  name="experience"
+                  min="1"
+                  max="50"
+                  value={mentorForm.experience}
+                  onChange={handleMentorInputChange}
+                  required
+                />
               </div>
               <div className="form-actions">
                 <button type="button" onClick={() => setShowMentorForm(false)}>

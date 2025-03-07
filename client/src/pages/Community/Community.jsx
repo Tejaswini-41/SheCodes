@@ -7,12 +7,11 @@ import Discussions from './components/Discussions';
 import './Community.css';
 
 const Community = () => {
+  const { user, isAuthenticated } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("mentorship");
-  const { user } = useContext(AuthContext);
   
   // Check if user is logged in and has a role
-  const isAdmin = user && user.role === 'admin';
-  const isLoggedIn = !!user;
+  const isAdmin = user?.role === 'admin';
 
   return (
     <div className="community-container">
@@ -41,9 +40,9 @@ const Community = () => {
       </div>
       
       <div className="tab-content">
-        {activeTab === "discussions" && <Discussions isAdmin={isAdmin} isLoggedIn={isLoggedIn} />}
-        {activeTab === "mentorship" && <Mentorship isAdmin={isAdmin} isLoggedIn={isLoggedIn} />}
-        {activeTab === "events" && <Events isAdmin={isAdmin} isLoggedIn={isLoggedIn} />}
+        {activeTab === "discussions" && <Discussions isAdmin={isAdmin} isLoggedIn={isAuthenticated} />}
+        {activeTab === "mentorship" && <Mentorship isAdmin={isAdmin} isLoggedIn={isAuthenticated} />}
+        {activeTab === "events" && <Events />}
       </div>
     </div>
   );

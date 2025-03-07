@@ -14,9 +14,10 @@ const Events = ({ isAdmin, isLoggedIn }) => {
     time: '',
     location: '',
     attendees: 0,
-    image: '/Images/events/default.jpg',
+    image: '',
     imageFile: null
   });
+  const [useEventImageUrl, setUseEventImageUrl] = useState(true);
 
   const handleEventInputChange = (e) => {
     const { name, value } = e.target;
@@ -146,17 +147,62 @@ const Events = ({ isAdmin, isLoggedIn }) => {
               </div>
               <div className="form-group">
                 <label>Event Image</label>
-                <input 
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
-                {eventForm.image && (
-                  <img 
-                    src={eventForm.image} 
-                    alt="Preview" 
-                    style={{ width: '100px', marginTop: '10px' }} 
-                  />
+                
+                <div className="image-input-toggle">
+                  <label>
+                    <input
+                      type="radio"
+                      name="eventImageInputType"
+                      checked={useEventImageUrl}
+                      onChange={() => setUseEventImageUrl(true)}
+                    />
+                    Use Image URL
+                  </label>
+                  <label style={{marginLeft: '15px'}}>
+                    <input
+                      type="radio"
+                      name="eventImageInputType"
+                      checked={!useEventImageUrl}
+                      onChange={() => setUseEventImageUrl(false)}
+                    />
+                    Upload Image
+                  </label>
+                </div>
+                
+                {useEventImageUrl ? (
+                  <div>
+                    <input
+                      type="url"
+                      name="image"
+                      value={eventForm.image || ''}
+                      onChange={handleEventInputChange}
+                      placeholder="Enter image URL (e.g., https://example.com/event.jpg)"
+                      className="image-url-input"
+                    />
+                    {eventForm.image && (
+                      <img
+                        src={eventForm.image}
+                        alt="Preview"
+                        style={{ width: '100px', marginTop: '10px' }}
+                        onError={(e) => e.target.src = '/Images/events/default.jpg'}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
+                    {eventForm.image && (
+                      <img
+                        src={eventForm.image}
+                        alt="Preview"
+                        style={{ width: '100px', marginTop: '10px' }}
+                      />
+                    )}
+                  </div>
                 )}
               </div>
               <div className="form-actions">

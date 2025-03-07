@@ -1,0 +1,335 @@
+.entrepreneurship-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.entrepreneurship-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.entrepreneurship-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card i {
+  font-size: 2.5rem;
+  color: #e0218a;
+  margin-bottom: 1rem;
+}
+
+.content-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tab-btn {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.tab-btn.active {
+  background: #e0218a;
+  color: white;
+}
+
+.resources-grid,
+.mentors-grid,
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.resource-card,
+.mentor-card,
+.opportunity-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.resource-card:hover,
+.mentor-card:hover,
+.opportunity-card:hover {
+  transform: translateY(-5px);
+}
+
+.opportunity-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-5px);
+}
+
+.apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #4CAF50;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+  background: #45a049;
+}
+
+.apply-btn i {
+  font-size: 0.875rem;
+}
+
+.opportunity-header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.opportunity-type {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin: 0.5rem 0;
+}
+
+.deadline {
+  color: #d32f2f;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+
+.expertise-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.expertise-tag {
+  background: rgba(224, 33, 138, 0.1);
+  color: #e0218a;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(224, 33, 138, 0.05), rgba(224, 33, 138, 0.1));
+  border-radius: 12px;
+  margin-top: 4rem;
+}
+
+.schedule-call-btn {
+  padding: 1rem 2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.schedule-call-btn:hover {
+  background: #ff69b4;
+  transform: translateY(-2px);
+}
+
+.business-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-page {
+  flex: 1;
+  padding: 2rem;
+}
+
+.business-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  color: white;
+  border-radius: 8px;
+}
+
+.business-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.leader-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+}
+
+.leader-image {
+  height: 300px;
+  overflow: hidden;
+}
+
+.leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leader-info {
+  padding: 1.5rem;
+}
+
+.leader-info h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.leader-info h3 {
+  color: #666;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.leader-info h4 {
+  color: #888;
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
+.leader-info p {
+  color: #555;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.achievements {
+  margin-top: 1.5rem;
+}
+
+.achievements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.achievements li {
+  padding: 0.5rem 0;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.achievements li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .entrepreneurship-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .content-tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .leaders-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .business-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .leader-image {
+    height: 250px;
+  }
+}

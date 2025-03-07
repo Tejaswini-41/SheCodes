@@ -1,0 +1,273 @@
+.blogs-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.blogs-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.blogs-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.featured-story {
+  margin-bottom: 4rem;
+}
+
+.featured-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.featured-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-text {
+  padding: 2rem;
+}
+
+.category-tag {
+  background: #e0218a;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.author-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.read-time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.blog-filters {
+  margin-bottom: 3rem;
+}
+
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #e0218a;
+  border-radius: 25px;
+  background: transparent;
+  color: #e0218a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.category-btn.active,
+.category-btn:hover {
+  background: #e0218a;
+  color: white;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.blog-image {
+  position: relative;
+  height: 200px;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-image .category-tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.blog-content {
+  padding: 1.5rem;
+}
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.post-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.write-blog {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(224, 33, 138, 0.05), rgba(224, 33, 138, 0.1));
+  border-radius: 12px;
+}
+
+.write-blog-btn {
+  padding: 1rem 2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.write-blog-btn:hover {
+  background: #ff69b4;
+  transform: translateY(-2px);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.form-actions button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background: #007bff;
+  color: white;
+  border: none;
+}
+
+.form-actions button[type="button"] {
+  background: #6c757d;
+  color: white;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .blogs-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .featured-content {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-content img {
+    height: 300px;
+  }
+}

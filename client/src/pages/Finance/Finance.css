@@ -1,0 +1,957 @@
+.finance-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.finance-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.finance-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.finance-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.finance-hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.finance-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.nav-btn {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.nav-btn.active {
+  background: #e0218a;
+  color: white;
+}
+
+.basics-grid,
+.investment-grid,
+.banking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.basic-card,
+.investment-card,
+.banking-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  text-align: center;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+}
+
+.basic-card:hover,
+.investment-card:hover,
+.banking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(224, 33, 138, 0.15);
+}
+
+.basic-icon,
+.investment-icon,
+.banking-icon {
+  font-size: 2.5rem;
+  color: #e0218a;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.investment-tips,
+.banking-options {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.investment-tips li,
+.banking-options li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.investment-tips li:last-child,
+.banking-options li:last-child {
+  border-bottom: none;
+}
+
+.calculator-section {
+  background: linear-gradient(145deg, #ffffff, #f3f3f3);
+  padding: 3rem;
+  border-radius: 20px;
+  margin: 3rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(224, 33, 138, 0.1);
+}
+
+.calculator-section h3 {
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.calculator-section h3:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #e0218a;
+  margin: 1rem auto;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calc-input {
+  position: relative;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.calc-input:hover {
+  transform: translateY(-5px);
+}
+
+.calc-input label {
+  display: block;
+  color: #444;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.calc-input input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.calc-input input:focus {
+  border-color: #e0218a;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(224, 33, 138, 0.1);
+}
+
+.calculator-section button {
+  display: block;
+  width: 200px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.2);
+}
+
+.calculator-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(224, 33, 138, 0.3);
+  background: #d01f7f;
+}
+
+.budget-results {
+  background: white;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease;
+}
+
+.budget-results h4 {
+  color: #e0218a;
+  font-size: 1.3rem;
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.budget-results p {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px dashed #eee;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.budget-results p:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.calculate-btn {
+  margin: 2rem auto;
+  display: block;
+  padding: 1rem 2rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.calculate-btn:hover {
+  background: #5a6fd6;
+}
+
+.budget-results {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.result-category {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.result-category h5 {
+  margin: 0 0 1rem;
+  color: #333;
+}
+
+.positive {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.negative {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Success Stories Enhanced Styles */
+.success-stories {
+  margin: 4rem 0;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 15px;
+}
+
+.success-stories h3 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.success-stories h3:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #e0218a;
+  margin: 1rem auto;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+.story-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+}
+
+.story-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(224, 33, 138, 0.2);
+}
+
+.story-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 3px solid #e0218a;
+}
+
+.story-content {
+  padding: 1.8rem;
+  text-align: left;
+}
+
+.story-content h4 {
+  color: #e0218a;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.story-content .story-author {
+  color: #666;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+.story-content p:last-child {
+  color: #444;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .finance-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .finance-hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .finance-hero h1 {
+    font-size: 2rem;
+  }
+
+  .finance-navigation {
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .calculator-section {
+    padding: 2rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .calculator-section h3 {
+    font-size: 1.8rem;
+  }
+
+  .calculator-grid {
+    gap: 1.5rem;
+  }
+
+  .calc-input {
+    padding: 1.2rem;
+  }
+
+  .calc-input label {
+    font-size: 1rem;
+  }
+
+  .calculator-section button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .budget-results {
+    padding: 1.5rem;
+  }
+
+  .budget-results h4 {
+    font-size: 1.2rem;
+  }
+
+  .budget-results p {
+    font-size: 1rem;
+  }
+
+  .video-card {
+    margin-bottom: 2rem;
+  }
+
+  .success-stories {
+    margin: 2rem 0;
+    padding: 1rem;
+  }
+
+  .stories-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .story-card img {
+    height: 200px;
+  }
+
+  .story-content {
+    padding: 1.2rem;
+  }
+
+  .story-content h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Video Section Styles */
+.investment-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+  max-height: none; /* Remove max-height restriction */
+}
+
+.video-player {
+  position: relative;
+  padding-bottom: 56.25%; /* Standard YouTube aspect ratio (16:9) */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-info {
+  padding: 1.5rem;
+  text-align: left;
+  background: white;
+}
+
+.video-info h3 {
+  color: #e0218a;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.video-info p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.video-info span {
+  color: #555;
+  font-size: 0.95rem;
+  display: block;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+/* Enhanced Investment Section Styles */
+.investment-section {
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  margin: 1.5rem 0;
+}
+
+.investment-section h2 {
+  color: #333;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.investment-section h2:after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #e0218a;
+  margin: 0.8rem auto;
+}
+
+.investment-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+  max-height: 350px;
+}
+
+.video-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(224, 33, 138, 0.15);
+}
+
+.video-player {
+  position: relative;
+  padding-bottom: 45%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-info {
+  padding: 1rem;
+  text-align: left;
+}
+
+.video-info h3 {
+  color: #e0218a;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.video-info p {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.video-info span {
+  color: #888;
+  font-size: 0.8rem;
+  display: block;
+  line-height: 1.3;
+}
+
+.investment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.investment-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.investment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #e0218a, #ff6b6b);
+}
+
+.investment-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(224, 33, 138, 0.15);
+}
+
+.investment-icon {
+  font-size: 2rem;
+  color: #e0218a;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.investment-card h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.investment-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.investment-tips li {
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed #eee;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.investment-tips li:before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #e0218a;
+}
+
+.investment-tips li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .investment-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .investment-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .video-card {
+    margin: 0 auto;
+    max-width: 450px;
+  }
+
+  .video-info {
+    padding: 1.2rem;
+  }
+
+  .video-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .investment-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .investment-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .investment-icon {
+    font-size: 2.3rem;
+  }
+
+  .investment-tips li {
+    font-size: 0.95rem;
+  }
+
+  .video-info p {
+    font-size: 0.9rem;
+  }
+
+  .video-info span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Enhanced Banking Section Styles */
+.banking-section {
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  margin: 2rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.banking-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #e0218a, #ff6b6b, #e0218a);
+  background-size: 200% 100%;
+  animation: gradientMove 3s infinite linear;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.banking-section h2 {
+  color: #333;
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.banking-section h2:after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #e0218a, #ff6b6b);
+  margin: 1.2rem auto;
+  border-radius: 2px;
+}
+
+.banking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem;
+}
+
+.banking-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(224, 33, 138, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.banking-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(224, 33, 138, 0.1), rgba(255, 107, 107, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.banking-card:hover::before {
+  opacity: 1;
+}
+
+.banking-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(224, 33, 138, 0.2);
+}
+
+.banking-icon {
+  font-size: 3rem;
+  color: #e0218a;
+  margin-bottom: 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.banking-card:hover .banking-icon {
+  transform: scale(1.2) rotate(5deg);
+  color: #ff6b6b;
+}
+
+.banking-card h3 {
+  color: #333;
+  font-size: 1.6rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.banking-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: #e0218a;
+  transition: width 0.3s ease;
+}
+
+.banking-card:hover h3::after {
+  width: 100px;
+}
+
+.banking-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.banking-options li {
+  padding: 1rem 1rem 1rem 2rem;
+  margin: 0.5rem 0;
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  position: relative;
+  background: rgba(224, 33, 138, 0.03);
+  border-radius: 8px;
+}
+
+.banking-options li::before {
+  content: '→';
+  position: absolute;
+  left: 0.8rem;
+  color: #e0218a;
+  transition: all 0.3s ease;
+}
+
+.banking-card:hover .banking-options li::before {
+  transform: translateX(3px);
+}
+
+.banking-options li:hover {
+  color: #e0218a;
+  background: rgba(224, 33, 138, 0.08);
+  padding-left: 2.5rem;
+}
+
+@media (max-width: 1024px) {
+  .banking-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banking-section {
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .banking-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .banking-grid {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .banking-card {
+    padding: 2rem;
+  }
+
+  .banking-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .banking-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .banking-options li {
+    font-size: 1rem;
+    padding: 0.8rem 0.8rem 0.8rem 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .banking-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .banking-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .banking-card {
+    padding: 1.5rem;
+  }
+
+  .banking-options li {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.7rem 0.7rem 1.6rem;
+  }
+}

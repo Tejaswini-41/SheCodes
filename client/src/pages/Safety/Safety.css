@@ -1,0 +1,691 @@
+.safety-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.safety-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.safety-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.emergency-banner {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sos-btn {
+  background: #ff3b3b;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.safety-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.nav-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.nav-btn.active {
+  background: #e0218a;
+  color: white;
+}
+
+.search-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input, .state-select {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus, .state-select:focus {
+  border-color: #e0218a;
+  box-shadow: 0 0 0 2px rgba(224, 33, 138, 0.1);
+}
+
+/* Improved styles for law cards */
+.laws-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
+  .laws-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.law-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.law-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.law-card-header {
+  padding: 15px 20px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.law-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  flex: 1;
+}
+
+.law-year {
+  background: #e0218a;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.law-description {
+  padding: 15px 20px;
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee;
+}
+
+.law-content {
+  padding: 15px 20px;
+}
+
+.key-points {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.key-points li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.key-points li i {
+  color: #e0218a;
+  font-size: 0.85rem;
+}
+
+.law-actions {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+}
+
+.helpline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.helpline i {
+  color: #e0218a;
+}
+
+.helpline strong {
+  color: #333;
+}
+
+.law-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.call-helpline-btn, 
+.read-more-btn {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.call-helpline-btn {
+  background: #e0218a;
+  color: white;
+}
+
+.read-more-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.call-helpline-btn:hover {
+  background: #c01b75;
+}
+
+.read-more-btn:hover {
+  background: #e0e0e0;
+}
+
+.workplace-laws h2,
+.domestic-laws h2,
+.sexual-assault-laws h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e0218a;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0218a;
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+
+.helplines-resources {
+  padding: 30px 0;
+}
+
+.helplines-resources h2 {
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.section-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.helplines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.helpline-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.helpline-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.helpline-icon {
+  width: 70px;
+  height: 70px;
+  background: #e0218a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.helpline-icon i {
+  font-size: 28px;
+}
+
+.helpline-card h3 {
+  color: #333;
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.helpline-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e0218a;
+  margin: 10px 0;
+}
+
+.helpline-card p {
+  color: #666;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  font-size: 0.95rem;
+}
+
+.helpline-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.call-now-btn, 
+.visit-site-btn {
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.call-now-btn {
+  background: #e0218a;
+  color: white;
+  flex: 1;
+}
+
+.visit-site-btn {
+  background: #f0f0f0;
+  color: #444;
+  flex: 1;
+}
+
+.call-now-btn:hover {
+  background: #c0196e;
+}
+
+.visit-site-btn:hover {
+  background: #dddddd;
+}
+
+.additional-resources h3 {
+  text-align: center;
+  margin: 30px 0 20px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .helplines-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.workplace-laws h2 i,
+.domestic-laws h2 i,
+.sexual-assault-laws h2 i {
+  font-size: 1.2rem;
+}
+
+.helpline {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(224, 33, 138, 0.1);
+  border-radius: 8px;
+  color: #e0218a;
+  text-align: center;
+  font-weight: 500;
+}
+
+.emergency-map {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.map-placeholder {
+  height: 300px;
+  background: #eee;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-number {
+  font-size: 1.2rem;
+  color: #e0218a;
+  margin: 1rem 0;
+}
+
+.call-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail {
+  position: relative;
+  height: 200px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(224, 33, 138, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.safety-community {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(224, 33, 138, 0.05), rgba(224, 33, 138, 0.1));
+  border-radius: 12px;
+  margin-top: 4rem;
+}
+
+.join-network-btn {
+  padding: 1rem 2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.join-network-btn:hover {
+  background: #ff69b4;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .safety-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .safety-navigation {
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .search-filters {
+    flex-direction: column;
+  }
+
+  .emergency-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Add to your Safety.css file */
+.tips-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-filter {
+  background-color: #eaeaea;  /* Darker background */
+  border: 1px solid #d0d0d0;  /* Added border */
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;  /* Make text bolder */
+  color: #444;  /* Explicit darker text color */
+}
+
+.category-filter.active {
+  background-color: #e0218a;  /* Match your pink theme color */
+  color: white;
+  border-color: #e0218a;
+  box-shadow: 0 2px 5px rgba(224, 33, 138, 0.3);  /* Add shadow for active state */
+}
+
+.category-filter:hover {
+  background-color: #d8d8d8;  /* Darker on hover */
+  transform: translateY(-2px);  /* Subtle lift effect */
+}
+
+
+
+.category-filter i {
+  margin-right: 5px;  /* Space between icon and text */
+}
+
+.section-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.safety-tips {
+  padding-top: 20px; /* Adjust as needed */
+}
+.tips-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.tips-card:hover {
+  transform: translateY(-5px);
+}
+
+.tips-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+}
+
+.tips-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.tips-content {
+  padding: 20px;
+}
+
+.tips-content ul {
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+.tips-content li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.tip-bullet {
+  color: #ff6b6b;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.resource-link {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+}
+
+.resource-link a {
+  color: #ff6b6b;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tip-count {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+/* Color coding for different categories */
+.tips-card.personal .tips-icon { background-color: #ff6b6b; }
+.tips-card.digital .tips-icon { background-color: #4ecdc4; }
+.tips-card.travel .tips-icon { background-color: #ff9f1c; }
+.tips-card.workplace .tips-icon { background-color: #7971ea; }
+.tips-card.public .tips-icon { background-color: #5d62b5; }
+.tips-card.home .tips-icon { background-color: #45b7d8; }
+
+.sexual-assault-laws {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.sexual-assault-laws h2 {
+  color: #e0218a;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0218a;
+  padding-bottom: 10px;
+}
+
+/* Make the laws grid 3 columns on large screens */
+@media (min-width: 1200px) {
+  .laws-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+}

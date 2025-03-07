@@ -1,0 +1,483 @@
+/* Base layout */
+.leadership-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.leadership-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Hero section */
+.leadership-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');  /* Updated to match landing page background */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.leadership-hero h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.leadership-hero p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Navigation */
+.leadership-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 0.8rem 2rem;
+  border: 2px solid #e0218a;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: #e0218a;
+  min-width: 150px;
+}
+
+.nav-btn.active,
+.nav-btn:hover {
+  background: #e0218a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.2);
+}
+
+/* Leader cards */
+.leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* Changed from 2 to 4 columns */
+  gap: 1.5rem;  /* Reduced gap for better fit */
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.leader-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;  /* Reduced padding */
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(224, 33, 138, 0.15);
+}
+
+.leader-image {
+  width: 180px;  /* Slightly smaller image */
+  height: 180px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e0218a;
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.2);
+}
+
+.leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.5s ease;
+}
+
+.leader-card:hover .leader-image img {
+  transform: scale(1.1);
+}
+
+.leader-info {
+  padding: 2rem;
+}
+
+.leader-info h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.leader-role {
+  color: #e0218a;
+  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  margin: 0.5rem 0 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.leader-quote {
+  font-style: italic;
+  color: #666;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #e0218a;
+}
+
+.achievements ul {
+  list-style: none;
+  padding: 0;
+}
+
+.achievements li {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.achievements li::before {
+  content: "✓";
+  color: #e0218a;
+  position: absolute;
+  left: 0;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.program-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.program-header {
+  padding: 20px;
+  background: linear-gradient(to right, #f27595, #e0218a);
+  color: white;
+  position: relative;
+}
+
+.program-logo {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  border-radius: 6px;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.program-logo img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.program-card:hover .program-logo img {
+  transform: scale(1.1);
+}
+
+.program-header h3 {
+  margin: 0 0 10px;
+  padding-right: 60px;
+  font-size: 1.3rem;
+}
+
+.program-format {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.program-details {
+  padding: 20px;
+}
+
+.program-description {
+  margin-bottom: 20px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.program-info {
+  margin-bottom: 20px;
+}
+
+.program-info p {
+  margin: 8px 0;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.program-info p i {
+  margin-right: 10px;
+  color: #e0218a;
+  width: 20px;
+  text-align: center;
+}
+
+.program-topics {
+  margin-bottom: 20px;
+}
+
+.program-topics h4 {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.program-topics ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.program-topics li {
+  margin-bottom: 8px;
+  padding-left: 25px;
+  position: relative;
+}
+
+.program-topics li i {
+  color: #e0218a;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.program-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.visit-site-btn, .enroll-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.visit-site-btn {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.enroll-btn {
+  background: #e0218a;
+  color: white;
+  border: none;
+}
+
+.visit-site-btn:hover {
+  background: #e0e0e0;
+}
+
+.enroll-btn:hover {
+  background: #c91b79;
+}
+
+.programs-note {
+  background: #f8f8f8;
+  border-left: 4px solid #e0218a;
+  padding: 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 30px 0;
+}
+
+.programs-note h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.programs-note h3 i {
+  color: #e0218a;
+}
+
+.programs-note p {
+  margin: 0;
+  color: #666;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.resource-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.resource-image {
+  position: relative;
+  height: 200px;
+}
+
+.resource-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resource-type {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(224, 33, 138, 0.9);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.resource-info {
+  padding: 1.5rem;
+}
+
+.community-cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(224, 33, 138, 0.05), rgba(224, 33, 138, 0.1));
+  border-radius: 12px;
+  margin-top: 4rem;
+}
+
+.join-btn,
+.enroll-btn,
+.register-btn {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(45deg, #e0218a, #ff69b4);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  min-width: 150px;
+  margin: 1rem auto;
+  display: block;
+}
+
+.join-btn:hover,
+.enroll-btn:hover,
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.3);
+  background: linear-gradient(45deg, #ff69b4, #e0218a);
+}
+
+.section-description {
+  text-align: center;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1200px) {
+  .leaders-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .leadership-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .leadership-hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .leadership-hero h1 {
+    font-size: 2rem;
+  }
+
+  .nav-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .leaders-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .leader-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .leader-info {
+    padding: 1.5rem;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,213 @@
+.contact-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.contact-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.contact-form-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form {
+  margin-top: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;  /* Ensure full width */
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;  /* Increased gap */
+  width: 100%;  /* Ensure full width */
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;  /* Added to fix sizing issues */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #e0218a;
+  box-shadow: 0 0 0 2px rgba(224, 33, 138, 0.1);
+}
+
+.submit-btn {
+  width: auto;  /* Changed from 100% */
+  padding: 0.8rem 2rem;  /* Reduced padding */
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 25px;  /* Increased border radius */
+  font-size: 0.95rem;  /* Slightly smaller font */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;  /* Center the button */
+  display: block;  /* Make it block to allow margin auto */
+  min-width: 150px;  /* Set minimum width */
+}
+
+.submit-btn:hover {
+  background: #ff69b4;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.contact-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-card i {
+  font-size: 2rem;
+  color: #e0218a;
+  margin-bottom: 1rem;
+}
+
+.chat-btn {
+  padding: 0.5rem 1rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.location-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.location-card i {
+  color: #e0218a;
+  margin-right: 0.5rem;
+}
+
+.faq-section {
+  margin-top: 4rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.faq-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-btn {
+    width: 100%;  /* Full width on mobile */
+    max-width: 200px;  /* Maximum width on mobile */
+  }
+}

@@ -1,0 +1,60 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files
+dist/
+build/
+
+# Editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# MongoDB database files
+data/db/
+dump/
+
+# Uploaded files
+server/uploads/
+
+# Python-related files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+venv/
+env/
+
+# FastAPI dependencies
+fastApi/__pycache__/
+fastApi/venv/
+fastApi/.env
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Streamlit cache
+.streamlit

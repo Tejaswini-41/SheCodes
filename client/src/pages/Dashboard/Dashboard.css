@@ -1,0 +1,319 @@
+/* Base layout */
+.dashboard-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Hero section */
+.hero-section {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 6rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Daily thought */
+.daily-thought {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  position: relative;
+  min-height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.quote {
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.author {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.thought-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s;
+}
+
+.indicator.active {
+  background: #e0218a;
+  box-shadow: 0 0 10px rgba(224, 33, 138, 0.5);
+}
+
+/* Features section */
+.features-scroll-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem 0;
+  margin: 2rem 0;
+}
+
+.features-scroll {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.features-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.feature-card {
+  flex: 0 0 300px;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(224, 33, 138, 0.15);
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: #2d3436;
+  letter-spacing: 0.2px;
+}
+
+.feature-card p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #636e72;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Leaders section */
+.leading-ladies-section {
+  padding: 4rem 2rem;
+  background: #fdf2f7;
+  margin: 4rem -2rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, #e0218a, #ff69b4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.section-title p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #636e72;
+}
+
+.leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.leader-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.leader-image {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e0218a;
+  box-shadow: 0 4px 15px rgba(224, 33, 138, 0.2);
+}
+
+.leader-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+}
+
+.leader-card:hover .leader-image img {
+  transform: scale(1.1);
+}
+
+.leader-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+}
+
+.leader-role {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e0218a;
+  margin: 0.5rem 0 1rem;
+}
+
+.leader-card p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #636e72;
+}
+
+/* Sponsors section */
+.sponsors-section {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.sponsors-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.sponsor-card {
+  flex: 0 0 300px;  /* increased from 180px */
+  height: 120px;    /* increased from 100px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;  /* increased from 1rem */
+  background: white;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sponsor-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transform: scale(1.1); /* makes the image slightly larger */
+}
+
+.sponsor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .hero-section {
+    padding: 4rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-title p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .leaders-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .leader-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .leaders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

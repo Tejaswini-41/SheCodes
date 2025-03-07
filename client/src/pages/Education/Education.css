@@ -1,0 +1,412 @@
+.education-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.education-page {
+  flex: 1;
+  padding: 0 2rem 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.education-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(224, 33, 138, 0.7)
+  ), url('/Images/background.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 12px;
+  margin: 2rem 0 3rem 0;
+  box-shadow: 0 4px 20px rgba(224, 33, 138, 0.2);
+}
+
+.education-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.education-hero p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.course-filters {
+  max-width: 1200px;
+  margin: 0 auto 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e0218a;
+  box-shadow: 0 0 0 2px rgba(224, 33, 138, 0.1);
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-container label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  background: #e0e0e0;
+}
+
+.filter-btn.active {
+  background: #e0218a;
+  color: white;
+  border-color: #e0218a;
+}
+
+.filter-results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.clear-filters-btn {
+  background: none;
+  border: none;
+  color: #e0218a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.clear-filters-btn:hover {
+  background: rgba(224, 33, 138, 0.1);
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 3rem;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.no-results h3 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.no-results p {
+  color: #777;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.course-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(224, 33, 138, 0.15);
+}
+
+.course-image {
+  position: relative;
+  height: 200px;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-level {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(224, 33, 138, 0.9);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.course-content {
+  padding: 1.5rem;
+}
+
+.course-category {
+  color: #e0218a;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.course-info {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.course-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin: 1rem 0;
+}
+
+.enroll-btn,
+.register-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.enroll-btn:hover,
+.register-btn:hover {
+  background: #ff69b4;
+}
+
+.workshops-section {
+  margin-top: 4rem;
+}
+
+.workshops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.workshop-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.workshop-image {
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.workshop-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.workshop-card:hover .workshop-image img {
+  transform: scale(1.05);
+}
+
+.workshop-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.workshop-info {
+  margin: 1rem 0;
+  flex: 1;
+}
+
+.workshop-info p {
+  margin: 0.5rem 0;
+}
+
+.workshop-price {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(224, 33, 138, 0.9);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.workshop-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.resources-section {
+  margin-top: 4rem;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.resource-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(224, 33, 138, 0.1);
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(224, 33, 138, 0.15);
+}
+
+.resource-card i {
+  font-size: 2.5rem;
+  color: #e0218a;
+  margin-bottom: 1rem;
+}
+
+.resource-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #2d3436;
+}
+
+.resource-card p {
+  color: #636e72;
+  line-height: 1.6;
+}
+
+.courses-section h2,
+.workshops-section h2,
+.resources-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .education-page {
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  .education-hero {
+    padding: 4rem 1.5rem;
+  }
+
+  .education-hero h1 {
+    font-size: 2rem;
+  }
+
+  .education-hero p {
+    font-size: 1rem;
+  }
+
+  .workshops-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .courses-section h2,
+  .workshops-section h2,
+  .resources-section h2 {
+    font-size: 1.8rem;
+  }
+}

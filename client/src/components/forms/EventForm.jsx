@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { apiRequest, API_ENDPOINTS, handleImagePreview } from '../../utils/apiUtils';
+import React, { useState, useEffect } from 'react';
+import { apiRequest, API_ENDPOINTS } from '../../utils/apiUtils';
 
-const EventForm = ({ onClose, onSuccess, user }) => {
+const EventForm = ({ onClose, onSuccess, user, eventToEdit = null }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [useImageUrl, setUseImageUrl] = useState(true);
@@ -15,13 +15,42 @@ const EventForm = ({ onClose, onSuccess, user }) => {
     imageFile: null
   });
 
+  // Initialize form when in edit mode
+  useEffect(() => {
+    if (eventToEdit) {
+      setEventForm({
+        title: eventToEdit.title || '',
+        date: eventToEdit.date || '',
+        time: eventToEdit.time || '',
+        location: eventToEdit.location || '',
+        attendees: eventToEdit.attendees || 0,
+        image: eventToEdit.image || '',
+        imageFile: null
+      });
+      
+      // If event has an image URL, switch to URL mode
+      setUseImageUrl(!!eventToEdit.image);
+    }
+  }, [eventToEdit]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEventForm(prev => ({ ...prev, [name]: value }));
   };
 
   const handleImageUpload = (e) => {
-    handleImagePreview(e.target.files[0], setEventForm);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEventForm(prev => ({
+          ...prev,
+          imageFile: file,
+          image: reader.result
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,6 +59,8 @@ const EventForm = ({ onClose, onSuccess, user }) => {
     setError(null);
     
     try {
+      const isEditing = !!eventToEdit;
+      
       if (useImageUrl) {
         // Send event with image URL
         const eventData = {
@@ -37,7 +68,18 @@ const EventForm = ({ onClose, onSuccess, user }) => {
           image: eventForm.image || '/Images/events/default.jpg'
         };
         
-        await apiRequest('post', API_ENDPOINTS.EVENTS, eventData, user);
+        if (isEditing) {
+          // Update existing event
+          await apiRequest(
+            'put', 
+            `${API_ENDPOINTS.EVENTS}/${eventToEdit._id}`, 
+            eventData, 
+            user
+          );
+        } else {
+          // Create new event
+          await apiRequest('post', API_ENDPOINTS.EVENTS, eventData, user);
+        }
       } else {
         // Send event with uploaded image
         const formData = new FormData();
@@ -49,19 +91,31 @@ const EventForm = ({ onClose, onSuccess, user }) => {
           }
         });
         
-        await apiRequest('post', API_ENDPOINTS.EVENTS, formData, user, true);
+        if (isEditing) {
+          await apiRequest(
+            'put', 
+            `${API_ENDPOINTS.EVENTS}/${eventToEdit._id}`, 
+            formData, 
+            user, 
+            true
+          );
+        } else {
+          await apiRequest('post', API_ENDPOINTS.EVENTS, formData, user, true);
+        }
       }
       
-      onSuccess && onSuccess();
-      onClose && onClose();
+      onSuccess && onSuccess(isEditing);
     } catch (err) {
-      const errorMsg = err.response?.data?.message || 'Failed to create event';
+      const errorMsg = err.response?.data?.message || 'Failed to process event';
       setError(errorMsg);
     } finally {
       setLoading(false);
     }
   };
 
+  // The rest of the form JSX remains the same, but update the submit button
+  // to show "Update Event" when editing
+  
   return (
     <form onSubmit={handleSubmit} className="event-form">
       {error && <div className="error-message">{error}</div>}
@@ -172,11 +226,18 @@ const EventForm = ({ onClose, onSuccess, user }) => {
       </div>
       
       <div className="form-actions">
-        <button type="button" onClick={onClose} disabled={loading}>
+        <button 
+          type="button" 
+          onClick={onClose} 
+          disabled={loading}
+        >
           Cancel
         </button>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creating...' : 'Create Event'}
+        <button 
+          type="submit" 
+          disabled={loading}
+        >
+          {loading ? 'Processing...' : eventToEdit ? 'Update Event' : 'Create Event'}
         </button>
       </div>
     </form>

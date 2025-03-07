@@ -33,21 +33,32 @@ export const handleImagePreview = (file, setFormData) => {
 
 // Make API request with proper auth
 export const apiRequest = async (method, url, data = null, user = null, isMultipart = false) => {
-  const headers = {
-    ...getAuthHeader(user)
-  };
-  
-  if (!isMultipart) {
-    headers['Content-Type'] = 'application/json';
-  }
-  
   try {
-    const response = await axios({
+    const headers = {};
+    
+    // Set auth header if user exists
+    if (user && user.token) {
+      headers['Authorization'] = `Bearer ${user.token}`;
+    }
+    
+    // Set content type header
+    if (!isMultipart) {
+      headers['Content-Type'] = 'application/json';
+    }
+    
+    const config = {
       method,
       url,
-      data,
       headers
-    });
+    };
+    
+    if (data) {
+      config.data = data;
+    }
+    
+    console.log('API Request:', method, url, headers); // Add this for debugging
+    
+    const response = await axios(config);
     return response.data;
   } catch (error) {
     console.error(`API Error (${method} ${url}):`, error);

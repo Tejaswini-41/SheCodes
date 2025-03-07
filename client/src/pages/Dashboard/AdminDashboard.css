@@ -397,3 +397,75 @@
       grid-template-columns: 1fr;
     }
   }
+
+  /* Add this to your existing AdminDashboard.css file */
+
+  .admin-events-list {
+    margin-top: 20px;
+  }
+  
+  .events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+  }
+  
+  .events-table th,
+  .events-table td {
+    border: 1px solid #e3e6f0;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .events-table th {
+    background-color: #f8f9fc;
+    color: #4e73df;
+    font-weight: 500;
+  }
+  
+  .events-table tr:nth-child(even) {
+    background-color: #f8f9fc;
+  }
+  
+  .events-table tr:hover {
+    background-color: rgba(78, 115, 223, 0.05);
+  }
+  
+  .event-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  
+  .event-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .edit-btn {
+    background-color: #4e73df;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #2e59d9;
+  }
+  
+  .delete-btn {
+    background-color: #e74a3b;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c23321;
+  }

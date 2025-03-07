@@ -8,7 +8,7 @@ import Discussions from './components/Discussions';
 import './Community.css';
 
 const Community = () => {
-  const [activeTab, setActiveTab] = useState("discussions");
+  const [activeTab, setActiveTab] = useState("mentorship");
   const { user } = useContext(AuthContext);
   
   return (

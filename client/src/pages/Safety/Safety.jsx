@@ -313,13 +313,26 @@ const Safety = () => {
         {activeTab === "laws" && (
           <section className="legal-rights-section">
             <div className="search-filters">
-              <input
-                type="text"
-                placeholder="Search legal information..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
-              />
+              <div className="search-input-container">
+                <i className="fas fa-search search-icon"></i>
+                <input
+                  type="text"
+                  placeholder="Search legal information..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
+                />
+                {searchQuery && (
+                  <button 
+                    className="clear-search-btn" 
+                    onClick={() => setSearchQuery('')}
+                    aria-label="Clear search"
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                )}
+              </div>
+              
               <select
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value)}

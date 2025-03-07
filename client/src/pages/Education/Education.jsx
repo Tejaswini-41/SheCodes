@@ -10,6 +10,7 @@ const Education = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [sortBy, setSortBy] = useState('popularity'); // Default sort by popularity
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const [showCourseForm, setShowCourseForm] = useState(false);
 
   const courses = [
     {
@@ -152,6 +153,48 @@ const Education = () => {
     setSortBy(e.target.value);
   };
 
+  const [newCourse, setNewCourse] = useState({
+    title: '',
+    category: '',
+    level: '',
+    duration: '',
+    image: '',
+    rating: '',
+    enrolled: '',
+    url: ''
+  });
+
+  const handleNewCourseChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'duration') {
+      // Remove any non-numeric characters and "weeks" from input
+      const numericValue = value.replace(/[^0-9]/g, '');
+      // Add "weeks" suffix if there's a number
+      setNewCourse({ 
+        ...newCourse, 
+        [name]: numericValue ? `${numericValue} weeks` : numericValue 
+      });
+    } else {
+      setNewCourse({ ...newCourse, [name]: value });
+    }
+  };
+
+  const handleAddCourse = (e) => {
+    e.preventDefault();
+    setFilteredCourses([...filteredCourses, newCourse]);
+    setShowCourseForm(false);
+    setNewCourse({
+      title: '',
+      category: '',
+      level: '',
+      duration: '',
+      image: '',
+      rating: '',
+      enrolled: '',
+      url: ''
+    });
+  };
+
   return (
     <div className="education-container">
       <Navbar />
@@ -184,8 +227,119 @@ const Education = () => {
                 <option value="durationAsc">Duration (Shortest First)</option>
                 <option value="durationDesc">Duration (Longest First)</option>
               </select>
+              <button className="add-course-btn" onClick={() => setShowCourseForm(true)}>
+                Add Course
+              </button>
             </div>
           </div>
+
+          {/* Move the course form here and make it a modal */}
+          {showCourseForm && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <h2>Add New Course</h2>
+                <form onSubmit={handleAddCourse} className="course-form">
+                  <div className="form-group">
+                    <label>Title</label>
+                    <input 
+                      type="text" 
+                      name="title" 
+                      value={newCourse.title} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Category</label>
+                    <input 
+                      type="text" 
+                      name="category" 
+                      value={newCourse.category} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Level</label>
+                    <select 
+                      name="level" 
+                      value={newCourse.level} 
+                      onChange={handleNewCourseChange}
+                      required
+                    >
+                      <option value="">Select Level</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                      <option value="All Levels">All Levels</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>Duration</label>
+                    <input 
+                      type="text" 
+                      name="duration" 
+                      value={newCourse.duration} 
+                      onChange={handleNewCourseChange}
+                      placeholder="Enter number of weeks"
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Course Image URL</label>
+                    <input 
+                      type="url" 
+                      name="image" 
+                      value={newCourse.image} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Rating (1-5)</label>
+                    <input 
+                      type="number" 
+                      name="rating" 
+                      min="1"
+                      max="5"
+                      step="0.1"
+                      value={newCourse.rating} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Initial Enrolled Count</label>
+                    <input 
+                      type="number" 
+                      name="enrolled" 
+                      value={newCourse.enrolled} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Course URL</label>
+                    <input 
+                      type="url" 
+                      name="url" 
+                      value={newCourse.url} 
+                      onChange={handleNewCourseChange}
+                      required 
+                    />
+                  </div>
+                  <div className="form-actions">
+                    <button type="button" onClick={() => setShowCourseForm(false)}>
+                      Cancel
+                    </button>
+                    <button type="submit">
+                      Add Course
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
           <div className="filter-buttons">
             {categories.map(category => (

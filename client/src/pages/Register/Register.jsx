@@ -42,74 +42,84 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <h2>Create Account</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Account Type</label>
-          <div className="role-selection">
-            <label>
-              <input
-                type="radio"
-                name="role"
-                value="user"
-                checked={formData.role === 'user'}
-                onChange={handleChange}
-              />
-              User
-            </label>
-            <label style={{marginLeft: '20px'}}>
-              <input
-                type="radio"
-                name="role"
-                value="admin"
-                checked={formData.role === 'admin'}
-                onChange={handleChange}
-              />
-              Admin
-            </label>
+      <div className="register-card">
+        <div className="register-header">
+          <div className="logo-container">
+            <img src="/Images/logo.png" alt="EmpowerHer Logo" className="brand-logo" />
           </div>
+         
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Registering...' : 'Register'}
-        </button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+
+        {error && <div className="error-message">{error}</div>}
+        
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Account Type</label>
+            <div className="role-selection">
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="user"
+                  checked={formData.role === 'user'}
+                  onChange={handleChange}
+                />
+                User
+              </label>
+              <label style={{marginLeft: '20px'}}>
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={formData.role === 'admin'}
+                  onChange={handleChange}
+                />
+                Admin
+              </label>
+            </div>
+          </div>
+          <button type="submit" className="register-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Account'}
+          </button>
+        </form>
+
+        <div className="register-footer">
+          <p>Already have an account? <Link to="/login">Login</Link></p>
+        </div>
+      </div>
     </div>
   );
 };

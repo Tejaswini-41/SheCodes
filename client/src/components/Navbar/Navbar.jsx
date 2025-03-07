@@ -15,11 +15,13 @@ const Navbar = () => {
   const mainLinks = [
     { to: "/dashboard", label: "Home", icon: "fa-home" },
     { to: "/dashboard/education", label: "Learn", icon: "fa-graduation-cap" },
-    { to: "/dashboard/finance", label: "Finance", icon: "fa-chart-line" },
-    { to: "/dashboard/safety", label: "Safety", icon: "fa-shield-alt" },
     { to: "/dashboard/leadership", label: "Lead", icon: "fa-users" },
     { to: "/dashboard/community", label: "Community", icon: "fa-comments" },
-    { to: "/dashboard/blogs", label: "Blogs", icon: "fa-pen-fancy" }
+    { to: "/dashboard/blogs", label: "Blogs", icon: "fa-pen-fancy" },
+    { to: "/dashboard/finance", label: "Finance", icon: "fa-chart-line" },
+    { to: "/dashboard/safety", label: "Safety", icon: "fa-shield-alt" }
+   
+    
   ];
   
   // More dropdown links
@@ -98,10 +100,14 @@ const Navbar = () => {
               </li>
             ))}
             <li className="more-dropdown" ref={moreDropdownRef}>
-              <button onClick={toggleMoreDropdown} className={isMoreActive() ? 'active' : ''}>
+              <Link 
+                to="#"
+                onClick={toggleMoreDropdown} 
+                className={isMoreActive() ? 'active' : ''}
+              >
                 <i className="fas fa-ellipsis-h"></i>
                 <span>More</span>
-              </button>
+              </Link>
               {showMoreDropdown && (
                 <ul className="dropdown-menu">
                   {moreLinks.map((link, index) => (

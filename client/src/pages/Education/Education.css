@@ -383,6 +383,149 @@
   text-align: center;
 }
 
+.add-course-section {
+  margin-top: 4rem;
+}
+
+.add-course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-course-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-course-form .form-group label {
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.add-course-form .form-group input {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-course-btn {
+  padding: 0.8rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.add-course-btn:hover {
+  background: #ff69b4;
+}
+
+/* Add Course Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.course-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.course-form .form-group label {
+  color: #333;
+  font-weight: 500;
+}
+
+.course-form .form-group input,
+.course-form .form-group select {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.course-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.course-form .form-actions button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.course-form .form-actions button[type="button"] {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.course-form .form-actions button[type="submit"] {
+  background: #e0218a;
+  color: white;
+}
+
+.course-form .form-actions button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Add Course Button Style */
+.add-course-btn {
+  padding: 0.6rem 1.2rem;
+  background: #e0218a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.add-course-btn:hover {
+  background: #ff69b4;
+  transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
   .education-page {
     padding: 0 1rem 3rem 1rem;

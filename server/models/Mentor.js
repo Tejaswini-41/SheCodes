@@ -5,6 +5,11 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   role: {
     type: String,
     required: true
@@ -17,26 +22,41 @@ const mentorSchema = new mongoose.Schema({
     type: [String],
     required: true
   },
-  availability: {
+  experience: {
+    type: Number,
+    required: true
+  },
+  bio: {
     type: String,
     required: true
   },
-  linkedinUrl: {
-    type: String,
-    default: 'https://www.linkedin.com/in/'
-  },
   avatar: {
     type: String,
-    default: 'https://cdn.prod.website-files.com/5ce11396d0cadb67eb2cac0e/621e3dddf8077a0ce7a409ba_Professional%20mentor.pngg'
+    default: ''
+  },
+  linkedinUrl: {
+    type: String,
+    default: ''
+  },
+  availability: {
+    type: String,
+    default: 'Limited availability'
   },
   status: {
     type: String,
     enum: ['pending', 'approved', 'rejected'],
     default: 'pending'
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  timestamps: true
 });
 
 const Mentor = mongoose.model('Mentor', mentorSchema);
+
 export default Mentor;

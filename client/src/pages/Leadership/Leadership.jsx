@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import { Link } from 'react-router-dom';
 import './Leadership.css';
 
 const Leadership = () => {
@@ -271,8 +272,8 @@ const Leadership = () => {
         <section className="community-cta">
           <h2>Join Our Leadership Community</h2>
           <p>Connect with ambitious women leaders and grow together</p>
-          <button className="join-btn">Join Network</button>
-        </section>
+          <Link to="/dashboard/community" className="join-btn">Find a Mentor</Link>
+</section>
       </div>
       <Footer />
     </div>

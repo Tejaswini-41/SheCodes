@@ -60,6 +60,7 @@ const EventForm = ({ onClose, onSuccess, user, eventToEdit = null }) => {
     
     try {
       const isEditing = !!eventToEdit;
+      const authToken = user.token || user; // Handle both token or user object
       
       if (useImageUrl) {
         // Send event with image URL
@@ -74,14 +75,22 @@ const EventForm = ({ onClose, onSuccess, user, eventToEdit = null }) => {
             'put', 
             `${API_ENDPOINTS.EVENTS}/${eventToEdit._id}`, 
             eventData, 
-            user
+            authToken, // Use the token
+            true
           );
         } else {
           // Create new event
-          await apiRequest('post', API_ENDPOINTS.EVENTS, eventData, user);
+          await apiRequest(
+            'post', 
+            API_ENDPOINTS.EVENTS, 
+            eventData, 
+            authToken, // Use the token
+            true
+          );
         }
       } else {
-        // Send event with uploaded image
+        // Handle file uploads - this part stays mostly the same
+        // but make sure to use the token
         const formData = new FormData();
         Object.keys(eventForm).forEach(key => {
           if (key === 'imageFile' && eventForm[key]) {
@@ -96,11 +105,11 @@ const EventForm = ({ onClose, onSuccess, user, eventToEdit = null }) => {
             'put', 
             `${API_ENDPOINTS.EVENTS}/${eventToEdit._id}`, 
             formData, 
-            user, 
+            authToken, 
             true
           );
         } else {
-          await apiRequest('post', API_ENDPOINTS.EVENTS, formData, user, true);
+          await apiRequest('post', API_ENDPOINTS.EVENTS, formData, authToken, true);
         }
       }
       

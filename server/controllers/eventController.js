@@ -73,7 +73,8 @@ export const deleteEvent = async (req, res) => {
   }
 };
 
-// Update an event
+// Ensure the update event function works correctly
+
 export const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,6 +83,9 @@ export const updateEvent = async (req, res) => {
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({ message: 'Invalid event ID format' });
     }
+    
+    console.log('Updating event:', id);
+    console.log('Update data:', req.body);
     
     const { title, date, time, location, attendees, image } = req.body;
     
@@ -100,12 +104,16 @@ export const updateEvent = async (req, res) => {
     if (attendees !== undefined) updateData.attendees = attendees;
     if (image !== undefined) updateData.image = image;
     
+    console.log('Update data processed:', updateData);
+    
     // Update the event
     const updatedEvent = await Event.findByIdAndUpdate(
       id,
       updateData,
       { new: true } // Return the updated document
     );
+    
+    console.log('Event updated successfully:', updatedEvent);
     
     return res.status(200).json(updatedEvent);
   } catch (error) {

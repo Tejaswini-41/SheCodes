@@ -4,7 +4,17 @@ import { apiRequest, API_ENDPOINTS } from '../../utils/apiUtils';
 const MentorRequests = ({ requests, onUpdate, user }) => {
   const handleApproveMentor = async (mentorId) => {
     try {
-      await apiRequest('patch', `${API_ENDPOINTS.MENTORS}/${mentorId}/approve`, {}, user);
+      console.log('Approving mentor with ID:', mentorId);
+      
+      await apiRequest(
+        'patch', 
+        `${API_ENDPOINTS.MENTORS}/${mentorId}/approve`, 
+        {}, 
+        user.token || user, // Use token directly if that's what's passed
+        true
+      );
+      
+      console.log('Mentor approved successfully');
       onUpdate(prev => prev.filter(mentor => mentor._id !== mentorId));
       alert('Mentor approved successfully!');
     } catch (err) {
@@ -15,7 +25,17 @@ const MentorRequests = ({ requests, onUpdate, user }) => {
   
   const handleRejectMentor = async (mentorId) => {
     try {
-      await apiRequest('delete', `${API_ENDPOINTS.MENTORS}/${mentorId}`, null, user);
+      console.log('Rejecting mentor with ID:', mentorId);
+      
+      await apiRequest(
+        'delete', 
+        `${API_ENDPOINTS.MENTORS}/${mentorId}`, 
+        null, 
+        user.token || user, // Use token directly if that's what's passed
+        true
+      );
+      
+      console.log('Mentor rejected successfully');
       onUpdate(prev => prev.filter(mentor => mentor._id !== mentorId));
       alert('Mentor request rejected!');
     } catch (err) {

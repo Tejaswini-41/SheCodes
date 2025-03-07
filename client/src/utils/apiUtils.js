@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-// API endpoints
+// Base URL for your API
+const API_BASE_URL = 'http://localhost:5000'; 
+
 export const API_ENDPOINTS = {
-  MENTORS: 'http://localhost:5000/api/mentors',
-  EVENTS: 'http://localhost:5000/api/events',
-  BLOGS: 'http://localhost:5000/api/blogs',
-  AUTH: 'http://localhost:5000/auth'
+  AUTH: `${API_BASE_URL}/auth`,
+  EVENTS: `${API_BASE_URL}/api/events`,
+  MENTORS: `${API_BASE_URL}/api/mentors`,
+  BLOGS: `${API_BASE_URL}/api/blogs`,
+  JOBS: `${API_BASE_URL}/api/jobs`
 };
 
 // Get authentication headers
@@ -31,37 +34,51 @@ export const handleImagePreview = (file, setFormData) => {
   reader.readAsDataURL(file);
 };
 
-// Make API request with proper auth
-export const apiRequest = async (method, url, data = null, user = null, isMultipart = false) => {
+export const apiRequest = async (method, endpoint, data = null, token = null, requireAuth = true, params = {}) => {
   try {
     const headers = {};
     
-    // Set auth header if user exists
-    if (user && user.token) {
-      headers['Authorization'] = `Bearer ${user.token}`;
-    }
-    
-    // Set content type header
-    if (!isMultipart) {
+    // Only set Content-Type if we're actually sending data
+    if (data !== null && data !== undefined) {
       headers['Content-Type'] = 'application/json';
     }
+
+    // Add authorization token if provided and required
+    if (token && requireAuth) {
+      headers['Authorization'] = `Bearer ${token}`;
+      console.log(`Adding Authorization header to ${endpoint} request`);
+    }
+
+    console.log(`API Request: ${method} ${endpoint}`, {
+      params,
+      hasToken: !!token && requireAuth,
+      hasData: !!data
+    });
     
+    // Configure the request
     const config = {
       method,
-      url,
-      headers
+      url: endpoint,
+      headers,
+      params
     };
     
-    if (data) {
+    // Only add data property if data exists
+    if (data !== null && data !== undefined) {
       config.data = data;
     }
     
-    console.log('API Request:', method, url, headers); // Add this for debugging
-    
     const response = await axios(config);
+
+    console.log(`API Response from ${endpoint}:`, response.status);
     return response.data;
   } catch (error) {
-    console.error(`API Error (${method} ${url}):`, error);
+    console.error(`API Error (${method} ${endpoint}):`, error.message);
+    
+    if (error.response) {
+      console.error('Response error:', error.response.status, error.response.data);
+    }
+    
     throw error;
   }
 };

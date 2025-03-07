@@ -1,16 +1,26 @@
 import express from 'express';
-import { getMentors, getAllMentors, createMentor, approveMentor, deleteMentor } from '../controllers/mentorController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { 
+  getMentors, 
+  createMentor, 
+  getPendingMentorRequests, 
+  approveMentor, 
+  deleteMentor,
+  seedTestMentors 
+} from '../controllers/mentorController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Public routes - available to all users
-router.get('/', getMentors); // Get approved mentors
-router.post('/', createMentor); // Submit mentor application
+// Public routes
+router.get('/', getMentors);
+router.post('/', createMentor);
 
-// Admin routes - require authentication
-router.get('/all', protect, getAllMentors); // Get all mentors (admin only)
-router.patch('/:id/approve', protect, approveMentor); // Approve mentor request
-router.delete('/:id', protect, deleteMentor); // Reject mentor request
+// Admin routes
+router.get('/pending', protect, getPendingMentorRequests);
+router.patch('/:id/approve', protect, approveMentor);
+router.delete('/:id', protect, deleteMentor);
+
+// Test data route - add test mentor requests for debugging
+router.get('/seed-test', seedTestMentors);
 
 export default router;

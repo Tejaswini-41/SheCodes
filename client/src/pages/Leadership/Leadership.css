@@ -14,6 +14,7 @@
   width: 100%;
 }
 
+
 /* Hero section */
 .leadership-hero {
   text-align: center;
@@ -421,6 +422,24 @@
   margin: 1rem auto;
   display: block;
 }
+
+.join-btn {
+  display: block;
+  width: 150px; /* Adjust width for short size */
+  margin: 20px auto; /* Centers the button */
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.join-btn:hover {
+  background-color: #0056b3;
+}
+
 
 .join-btn:hover,
 .enroll-btn:hover,

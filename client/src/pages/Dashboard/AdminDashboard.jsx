@@ -5,105 +5,136 @@ import { apiRequest, API_ENDPOINTS } from '../../utils/apiUtils';
 import EventForm from '../../components/forms/EventForm';
 import MentorRequests from '../../components/admin/MentorRequests';
 import DashboardStats from '../../components/admin/DashboardStats';
+import AdminJobsManager from '../admin/AdminJobsManager';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const { user, loading: authLoading } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('overview');
   const [mentorRequests, setMentorRequests] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showEventForm, setShowEventForm] = useState(false);
   const [stats, setStats] = useState({
     totalUsers: 0,
-    activeUsers: 0,
     totalEvents: 0,
-    totalMentors: 0
+    totalMentors: 0,
+    totalBlogs: 0,
+    totalJobs: 0
   });
   const [events, setEvents] = useState([]);
   const [editingEvent, setEditingEvent] = useState(null);
+  const [activeAdminTab, setActiveAdminTab] = useState('users');
 
   // Fetch admin data after authentication is confirmed
   useEffect(() => {
-    if (authLoading) return; // Don't do anything while auth is loading
-    if (!user || user.role !== 'admin') return;
-    
-    const fetchAdminData = async () => {
+    if (token) {
+      fetchAdminData();
+      fetchMentorRequests();
+      fetchEvents();
+    } else {
+      setError("Authentication required");
+      setLoading(false);
+    }
+  }, [token]);
+
+  const fetchAdminData = async () => {
+    try {
       setLoading(true);
-      try {
-        // Fetch user stats using the auth endpoint
-        const userStatsResponse = await apiRequest(
-          'get',
-          `${API_ENDPOINTS.AUTH}/stats`,
-          null,
-          user
-        );
-        
-        // Fetch mentor data
-        const mentorsResponse = await apiRequest(
-          'get', 
-          `${API_ENDPOINTS.MENTORS}/all`, 
-          null, 
-          user
-        );
-        
-        // Fetch events data
-        const eventsResponse = await apiRequest(
-          'get',
-          `${API_ENDPOINTS.EVENTS}`,
-          null,
-          user
-        );
-        
-        // Store events in state
-        setEvents(Array.isArray(eventsResponse) ? eventsResponse : []);
-        
-        // Process mentor requests
-        const pendingMentors = Array.isArray(mentorsResponse) 
-          ? mentorsResponse.filter(mentor => mentor.status === 'pending')
-          : [];
-        
-        setMentorRequests(pendingMentors);
-        
-        // Set real stats from API responses with fallbacks
-        setStats({
-          totalUsers: userStatsResponse?.totalUsers || 0,
-          activeUsers: userStatsResponse?.activeUsers || 0,
-          totalEvents: Array.isArray(eventsResponse) ? eventsResponse.length : 0,
-          totalMentors: Array.isArray(mentorsResponse) 
-            ? mentorsResponse.filter(m => m.status === 'approved').length 
-            : 0
-        });
-      } catch (error) {
-        console.error('Error fetching admin data:', error);
-        
-        // Fallback to placeholder data if API fails
-        setStats({
-          totalUsers: 125,
-          activeUsers: 78,
-          totalEvents: 15,
-          totalMentors: 8
-        });
-        
-        setError('Failed to load some admin data. Using placeholder values.');
-      } finally {
-        setLoading(false);
+      
+      console.log("Fetching admin data with token:", token ? "Token exists" : "No token");
+      
+      const response = await apiRequest(
+        'get',
+        API_ENDPOINTS.AUTH + '/stats',
+        null,
+        token,
+        true
+      );
+      
+      console.log("Admin stats response:", response);
+      
+      if (response) {
+        setStats(response);
       }
-    };
-    
-    fetchAdminData();
-  }, [authLoading, user]);
-  
+      
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching admin data:', err);
+      setError("Failed to load admin data. Please check your permissions.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMentorRequests = async () => {
+    try {
+      console.log('Fetching pending mentor requests...');
+      
+      const response = await apiRequest(
+        'get',
+        `${API_ENDPOINTS.MENTORS}/pending`,
+        null,
+        token, // Pass token, not user
+        true
+      );
+      
+      console.log('Mentor requests response:', response);
+      
+      // Handle different response formats
+      if (response && Array.isArray(response)) {
+        setMentorRequests(response);
+      } else if (response && Array.isArray(response.mentorRequests)) {
+        setMentorRequests(response.mentorRequests);
+      } else {
+        console.warn('Unexpected mentor requests format:', response);
+        setMentorRequests([]);
+      }
+    } catch (err) {
+      console.error('Error fetching mentor requests:', err);
+      setMentorRequests([]);
+    }
+  };
+
+  const fetchEvents = async () => {
+    try {
+      const response = await apiRequest(
+        'get',
+        API_ENDPOINTS.EVENTS,
+        null,
+        token
+      );
+      
+      console.log('Events response:', response);
+      
+      // Handle different response formats
+      if (response && Array.isArray(response)) {
+        setEvents(response);
+      } else if (response && Array.isArray(response.events)) {
+        setEvents(response.events);
+      } else {
+        console.warn('Unexpected events format:', response);
+        setEvents([]);
+      }
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      setEvents([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDeleteEvent = async (eventId) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        console.log('Deleting event with ID:', eventId); // Add for debugging
+        console.log('Deleting event with ID:', eventId);
         
         await apiRequest(
           'delete', 
           `${API_ENDPOINTS.EVENTS}/${eventId}`, 
           null, 
-          user
+          token, // Pass token, not user
+          true
         );
         
         // Remove the deleted event from the list
@@ -130,7 +161,7 @@ const AdminDashboard = () => {
   };
   
   // Show loading state while checking authentication
-  if (authLoading) {
+  if (loading) {
     return <div className="loading-container">Loading admin dashboard...</div>;
   }
   
@@ -166,6 +197,12 @@ const AdminDashboard = () => {
         >
           Create Events
         </button>
+        <button 
+          className={activeTab === 'jobs' ? 'active' : ''} 
+          onClick={() => setActiveTab('jobs')}
+        >
+          <i className="fas fa-briefcase"></i> Manage Jobs
+        </button>
       </div>
       
       {loading && <div className="loading">Loading data...</div>}
@@ -183,7 +220,7 @@ const AdminDashboard = () => {
           <MentorRequests 
             requests={mentorRequests} 
             onUpdate={setMentorRequests}
-            user={user}
+            user={token} // Pass token, not user object
           />
         </div>
       )}
@@ -267,12 +304,19 @@ const AdminDashboard = () => {
                     setEditingEvent(null);
                   }}
                   onSuccess={handleEventSuccess}
-                  user={user}
+                  user={token} // Pass token, not user object
                   eventToEdit={editingEvent}
                 />
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Jobs Management Tab */}
+      {activeTab === 'jobs' && (
+        <div className="admin-tab-content">
+          <AdminJobsManager user={user} />
         </div>
       )}
     </div>

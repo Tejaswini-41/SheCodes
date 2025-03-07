@@ -1,0 +1,394 @@
+import React, { useState, useEffect } from 'react';
+import { apiRequest, API_ENDPOINTS } from '../../utils/apiUtils';
+import './AdminJobsManager.css';
+
+const AdminJobsManager = ({ user }) => {
+  // Initialize jobs as empty array, not undefined
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showJobForm, setShowJobForm] = useState(false);
+  const [editingJob, setEditingJob] = useState(null);
+  const [jobForm, setJobForm] = useState({
+    company: '',
+    role: '',
+    location: '',
+    type: 'Full-time',
+    experience: '',
+    skills: '',
+    logo: '',
+    category: 'engineering',
+    description: '',
+    url: '',
+    salary: ''
+  });
+  const [fetchingExternalJobs, setFetchingExternalJobs] = useState(false);
+
+  // Fetch all jobs
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      setLoading(true);
+      console.log('Fetching jobs...');
+      
+      const response = await apiRequest('get', API_ENDPOINTS.JOBS, null, user);
+      console.log('API response:', response);
+      
+      // Add defensive check for response and response.jobs
+      if (response && response.jobs) {
+        console.log('Jobs found:', response.jobs.length);
+        setJobs(response.jobs);
+      } else {
+        console.warn('No jobs array in response or response is invalid:', response);
+        // Initialize with empty array if response.jobs is missing
+        setJobs([]);
+      }
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+      // Always set jobs to empty array on error
+      setJobs([]);
+      alert('Failed to fetch jobs');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === 'skills') {
+      // Convert comma-separated string to array
+      setJobForm(prev => ({ ...prev, [name]: value }));
+    } else {
+      setJobForm(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const formData = { ...jobForm };
+      
+      // Convert skills from comma-separated string to array
+      if (typeof formData.skills === 'string') {
+        formData.skills = formData.skills.split(',').map(skill => skill.trim()).filter(Boolean);
+      }
+      
+      if (editingJob) {
+        // Update existing job
+        await apiRequest('put', `${API_ENDPOINTS.JOBS}/${editingJob._id}`, formData, user);
+        alert('Job updated successfully!');
+      } else {
+        // Create new job
+        await apiRequest('post', API_ENDPOINTS.JOBS, formData, user);
+        alert('Job created successfully!');
+      }
+      
+      // Reset form and refresh jobs
+      setJobForm({
+        company: '',
+        role: '',
+        location: '',
+        type: 'Full-time',
+        experience: '',
+        skills: '',
+        logo: '',
+        category: 'engineering',
+        description: '',
+        url: '',
+        salary: ''
+      });
+      setShowJobForm(false);
+      setEditingJob(null);
+      fetchJobs();
+    } catch (error) {
+      console.error('Error saving job:', error);
+      alert('Failed to save job');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEdit = (job) => {
+    setEditingJob(job);
+    setJobForm({
+      ...job,
+      // Convert array back to comma-separated string for the form
+      skills: Array.isArray(job.skills) ? job.skills.join(', ') : job.skills
+    });
+    setShowJobForm(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this job?')) return;
+    
+    try {
+      setLoading(true);
+      await apiRequest('delete', `${API_ENDPOINTS.JOBS}/${id}`, null, user);
+      alert('Job deleted successfully!');
+      fetchJobs();
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      alert('Failed to delete job');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchExternalJobs = async () => {
+    if (!window.confirm('This will fetch jobs from external API. Continue?')) return;
+    
+    try {
+      setFetchingExternalJobs(true);
+      const response = await apiRequest('post', `${API_ENDPOINTS.JOBS}/fetch-external`, null, user);
+      alert(`Successfully fetched ${response.count} jobs from external API`);
+      fetchJobs();
+    } catch (error) {
+      console.error('Error fetching external jobs:', error);
+      alert('Failed to fetch external jobs. Make sure your API keys are configured.');
+    } finally {
+      setFetchingExternalJobs(false);
+    }
+  };
+
+  return (
+    <div className="admin-jobs-manager">
+      <div className="manager-header">
+        <h2>Manage Job Listings</h2>
+        <div className="action-buttons">
+          <button 
+            className="add-job-btn"
+            onClick={() => setShowJobForm(true)}
+          >
+            <i className="fas fa-plus"></i> Add New Job
+          </button>
+          <button 
+            className="fetch-external-btn"
+            onClick={fetchExternalJobs}
+            disabled={fetchingExternalJobs}
+          >
+            <i className="fas fa-cloud-download-alt"></i> 
+            {fetchingExternalJobs ? 'Fetching...' : 'Fetch External Jobs'}
+          </button>
+        </div>
+      </div>
+      
+      {loading && <div className="loading-spinner">Loading...</div>}
+      
+      {showJobForm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>{editingJob ? 'Edit Job' : 'Add New Job'}</h2>
+            <form onSubmit={handleSubmit} className="job-form">
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Company Name*</label>
+                  <input 
+                    type="text" 
+                    name="company" 
+                    value={jobForm.company} 
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Role/Position*</label>
+                  <input 
+                    type="text" 
+                    name="role" 
+                    value={jobForm.role} 
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Location*</label>
+                  <input 
+                    type="text" 
+                    name="location" 
+                    value={jobForm.location} 
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Job Type</label>
+                  <select 
+                    name="type" 
+                    value={jobForm.type} 
+                    onChange={handleInputChange}
+                  >
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Internship">Internship</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label>Experience Level</label>
+                  <input 
+                    type="text" 
+                    name="experience" 
+                    value={jobForm.experience} 
+                    onChange={handleInputChange}
+                    placeholder="e.g. 2-3 years"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Skills (comma-separated)</label>
+                  <input 
+                    type="text" 
+                    name="skills" 
+                    value={jobForm.skills} 
+                    onChange={handleInputChange}
+                    placeholder="e.g. JavaScript, React, Node.js"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Company Logo URL</label>
+                  <input 
+                    type="text" 
+                    name="logo" 
+                    value={jobForm.logo} 
+                    onChange={handleInputChange}
+                    placeholder="https://example.com/logo.png"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Category*</label>
+                  <select 
+                    name="category" 
+                    value={jobForm.category} 
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="engineering">Engineering</option>
+                    <option value="design">Design</option>
+                    <option value="product">Product</option>
+                    <option value="data">Data</option>
+                    <option value="management">Management</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label>Salary Range</label>
+                  <input 
+                    type="text" 
+                    name="salary" 
+                    value={jobForm.salary} 
+                    onChange={handleInputChange}
+                    placeholder="e.g. $80K-$120K"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Application URL</label>
+                  <input 
+                    type="url" 
+                    name="url" 
+                    value={jobForm.url} 
+                    onChange={handleInputChange}
+                    placeholder="https://example.com/apply"
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group full-width">
+                <label>Job Description</label>
+                <textarea 
+                  name="description" 
+                  value={jobForm.description} 
+                  onChange={handleInputChange}
+                  rows="5"
+                  placeholder="Describe the job responsibilities and requirements"
+                ></textarea>
+              </div>
+              
+              <div className="form-actions">
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setShowJobForm(false);
+                    setEditingJob(null);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : editingJob ? 'Update Job' : 'Add Job'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+      <div className="jobs-table-container">
+        <table className="jobs-table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Location</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Posted Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Add null check with optional chaining or use ! operator */}
+            {!jobs || jobs.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="no-jobs">No job listings found</td>
+              </tr>
+            ) : (
+              jobs.map(job => (
+                <tr key={job._id}>
+                  <td>{job.company}</td>
+                  <td>{job.role}</td>
+                  <td>{job.location}</td>
+                  <td>{job.type}</td>
+                  <td>{job.category}</td>
+                  <td>{job.postedDate ? new Date(job.postedDate).toLocaleDateString() : 'N/A'}</td>
+                  <td className="actions-cell">
+                    <button 
+                      className="edit-btn"
+                      onClick={() => handleEdit(job)}
+                    >
+                      <i className="fas fa-edit"></i>
+                    </button>
+                    <button 
+                      className="delete-btn"
+                      onClick={() => handleDelete(job._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default AdminJobsManager;

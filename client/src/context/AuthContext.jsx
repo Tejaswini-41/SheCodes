@@ -1,30 +1,35 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
-export const AuthContext = createContext();
+// Create context with a default value
+const AuthContext = createContext(null);
 
-export const useAuth = () => {
+// Custom hook for using the auth context
+const useAuth = () => {
   return useContext(AuthContext);
 };
 
-export const AuthProvider = ({ children }) => {
+// Provider component that wraps the app
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = () => {
-      try {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
-        }
-      } catch (error) {
-        console.error("Error loading user from storage:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
     
-    loadUser();
+    if (storedUser && storedToken) {
+      try {
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
+    }
+    
+    setLoading(false);
   }, []);
 
   const login = async (email, password) => {
@@ -43,9 +48,10 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Make sure data includes token from the server response
       localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('token', data.token);
       setUser(data);
+      setToken(data.token);
       return data;
     } catch (error) {
       throw error;
@@ -69,7 +75,9 @@ export const AuthProvider = ({ children }) => {
       }
 
       localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('token', data.token);
       setUser(data);
+      setToken(data.token);
       return data;
     } catch (error) {
       throw error;
@@ -78,20 +86,27 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     setUser(null);
+    setToken(null);
   };
 
-  // Keep the same structure to avoid HMR issues
+  const value = {
+    user, 
+    token, 
+    loading, 
+    login, 
+    register, 
+    logout,
+    isAuthenticated: !!user
+  };
+
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      loading, 
-      login, 
-      register, 
-      logout,
-      isAuthenticated: !!user 
-    }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+// Export all at the end to maintain consistent export pattern
+export { AuthContext, useAuth, AuthProvider };

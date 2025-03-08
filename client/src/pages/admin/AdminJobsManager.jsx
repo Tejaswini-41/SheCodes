@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { apiRequest, API_ENDPOINTS } from '../../utils/apiUtils';
 import './AdminJobsManager.css';
 
-const AdminJobsManager = ({ user }) => {
+// Update the component signature to accept token
+const AdminJobsManager = ({ user, token }) => {
   // Initialize jobs as empty array, not undefined
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,27 +14,28 @@ const AdminJobsManager = ({ user }) => {
     role: '',
     location: '',
     type: 'Full-time',
-    experience: '',
+    experience: '2', // Make sure this is a string since we're using it as a string in the form
     skills: '',
-    logo: '',
-    category: 'engineering',
     description: '',
-    url: '',
-    salary: ''
+    category: 'General',
+    applyLink: '',  // Add this line
+    logo: ''
   });
   const [fetchingExternalJobs, setFetchingExternalJobs] = useState(false);
+  const [error, setError] = useState(null);
 
   // Fetch all jobs
   useEffect(() => {
     fetchJobs();
   }, []);
 
+  // Update fetchJobs function
   const fetchJobs = async () => {
     try {
       setLoading(true);
       console.log('Fetching jobs...');
       
-      const response = await apiRequest('get', API_ENDPOINTS.JOBS, null, user);
+      const response = await apiRequest('get', API_ENDPOINTS.JOBS, null, token);
       console.log('API response:', response);
       
       // Add defensive check for response and response.jobs
@@ -66,6 +68,7 @@ const AdminJobsManager = ({ user }) => {
     }
   };
 
+  // Update handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -80,11 +83,11 @@ const AdminJobsManager = ({ user }) => {
       
       if (editingJob) {
         // Update existing job
-        await apiRequest('put', `${API_ENDPOINTS.JOBS}/${editingJob._id}`, formData, user);
+        await apiRequest('put', `${API_ENDPOINTS.JOBS}/${editingJob._id}`, formData, token);
         alert('Job updated successfully!');
       } else {
         // Create new job
-        await apiRequest('post', API_ENDPOINTS.JOBS, formData, user);
+        await apiRequest('post', API_ENDPOINTS.JOBS, formData, token);
         alert('Job created successfully!');
       }
       
@@ -123,12 +126,13 @@ const AdminJobsManager = ({ user }) => {
     setShowJobForm(true);
   };
 
+  // Update handleDelete function
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this job?')) return;
     
     try {
       setLoading(true);
-      await apiRequest('delete', `${API_ENDPOINTS.JOBS}/${id}`, null, user);
+      await apiRequest('delete', `${API_ENDPOINTS.JOBS}/${id}`, null, token);
       alert('Job deleted successfully!');
       fetchJobs();
     } catch (error) {
@@ -139,17 +143,51 @@ const AdminJobsManager = ({ user }) => {
     }
   };
 
+  // Update fetchExternalJobs function
   const fetchExternalJobs = async () => {
     if (!window.confirm('This will fetch jobs from external API. Continue?')) return;
     
     try {
       setFetchingExternalJobs(true);
-      const response = await apiRequest('post', `${API_ENDPOINTS.JOBS}/fetch-external`, null, user);
-      alert(`Successfully fetched ${response.count} jobs from external API`);
-      fetchJobs();
+      setError(null);
+      
+      console.log('Fetching external jobs with token:', token ? 'Valid token' : 'No token');
+      
+      const response = await apiRequest(
+        'post', 
+        `${API_ENDPOINTS.JOBS}/fetch-external`, 
+        null,
+        token,
+        true
+      );
+      
+      console.log('External jobs response:', response);
+      
+      if (response.success) {
+        alert(`Successfully fetched ${response.count} jobs!`);
+        fetchJobs();
+      } else {
+        alert('Failed to fetch external jobs: ' + response.message);
+      }
     } catch (error) {
       console.error('Error fetching external jobs:', error);
-      alert('Failed to fetch external jobs. Make sure your API keys are configured.');
+      
+      // Try the test jobs endpoint as fallback
+      try {
+        const fallbackResponse = await apiRequest(
+          'get',
+          `${API_ENDPOINTS.JOBS}/seed-test`,
+          null,
+          token,
+          true
+        );
+        
+        alert(`External API unavailable. Added ${fallbackResponse.count} test jobs instead.`);
+        fetchJobs();
+      } catch (fallbackError) {
+        alert('Failed to fetch jobs. Adzuna API is currently unavailable and fallback also failed.');
+        setError('Failed to fetch jobs. Please try again later.');
+      }
     } finally {
       setFetchingExternalJobs(false);
     }
@@ -303,6 +341,20 @@ const AdminJobsManager = ({ user }) => {
                     onChange={handleInputChange}
                     placeholder="https://example.com/apply"
                   />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="applyLink">Application Link</label>
+                  <input
+                    type="url"
+                    id="applyLink"
+                    name="applyLink"
+                    value={jobForm.applyLink}
+                    onChange={handleInputChange}
+                    placeholder="https://example.com/apply"
+                    required
+                  />
+                  <div className="form-help">URL where candidates can apply for this job</div>
                 </div>
               </div>
               

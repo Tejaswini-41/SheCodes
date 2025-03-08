@@ -140,6 +140,9 @@ const AdminDashboard = () => {
         // Remove the deleted event from the list
         setEvents(prevEvents => prevEvents.filter(event => event._id !== eventId));
         alert('Event deleted successfully!');
+        
+        // Refresh stats after deletion
+        fetchAdminData();
       } catch (error) {
         console.error('Error deleting event:', error);
         alert(`Failed to delete event: ${error.response?.data?.message || error.message}`);
@@ -156,8 +159,14 @@ const AdminDashboard = () => {
     alert(wasEditing ? 'Event updated successfully!' : 'Event created successfully!');
     setShowEventForm(false);
     setEditingEvent(null);
-    // Refresh events data
-    fetchAdminData();
+    
+    // Refresh both events and admin stats
+    Promise.all([fetchEvents(), fetchAdminData()]);
+  };
+
+  const handleMentorUpdate = async () => {
+    // Refresh both mentor requests and admin stats
+    await Promise.all([fetchMentorRequests(), fetchAdminData()]);
   };
   
   // Show loading state while checking authentication
@@ -219,7 +228,7 @@ const AdminDashboard = () => {
           <h2>Pending Mentor Requests</h2>
           <MentorRequests 
             requests={mentorRequests} 
-            onUpdate={setMentorRequests}
+            onUpdate={handleMentorUpdate}
             user={token} // Pass token, not user object
           />
         </div>
@@ -316,7 +325,7 @@ const AdminDashboard = () => {
       {/* Jobs Management Tab */}
       {activeTab === 'jobs' && (
         <div className="admin-tab-content">
-          <AdminJobsManager user={user} />
+          <AdminJobsManager user={user} token={token} />
         </div>
       )}
     </div>

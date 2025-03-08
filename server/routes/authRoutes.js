@@ -1,17 +1,22 @@
 import express from 'express';
-import { register, login, getUserProfile, getUserStats } from '../controllers/authController.js';
+import { 
+  login, 
+  register, 
+  getUserProfile as getProfile,  // Use the actual function name but alias it as getProfile 
+  updateProfile, 
+  getStats 
+} from '../controllers/authController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Public routes
-router.post('/register', register);
+// Auth routes
 router.post('/login', login);
-
-// Protected routes
-router.get('/profile', protect, getUserProfile);
+router.post('/register', register);
+router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateProfile);
 
 // Admin routes
-router.get('/stats', protect, admin, getUserStats);
+router.get('/stats', protect, getStats);
 
 export default router;

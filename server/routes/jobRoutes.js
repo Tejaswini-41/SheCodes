@@ -19,5 +19,6 @@ router.post('/', protect, admin, createJob);
 router.put('/:id', protect, admin, updateJob);
 router.delete('/:id', protect, admin, deleteJob);
 router.post('/fetch-external', protect, admin, fetchJobsFromAPI);
+router.get('/seed-test', protect, admin, seedTestJobs); //test route
 
 export default router;

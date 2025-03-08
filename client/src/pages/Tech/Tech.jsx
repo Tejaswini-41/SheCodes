@@ -141,20 +141,41 @@ const Tech = () => {
     
     // Filter by experience
     if (filters.experience !== 'all') {
+      console.log('Filtering by experience:', filters.experience);
+      
       result = result.filter(job => {
-        // Handle both string and numeric experience
-        const jobExp = job.experience || '';
+        // Get the experience value (could be string, number, or undefined)
+        const jobExp = job.experience;
         
+        // Skip filtering for jobs with no experience info
+        if (jobExp === undefined || jobExp === null || jobExp === '') {
+          return true; // Include jobs with no experience info
+        }
+        
+        // Convert to string for consistent handling
+        const expString = String(jobExp).toLowerCase();
+        const expNumber = parseInt(jobExp);
+        
+        // Check if it's a valid number
+        const isNumber = !isNaN(expNumber);
+        
+        // Debug
+        console.log(`Job ${job.role} - Experience: ${jobExp}, Type: ${typeof jobExp}, IsNumber: ${isNumber}`);
+        
+        // More flexible matching
         if (filters.experience === 'entry') {
-          return String(jobExp).toLowerCase().includes('entry') || 
-                 String(jobExp).toLowerCase().includes('junior') ||
-                 (Number(jobExp) <= 2);
+          // Entry level: 0-2 years OR contains entry-level keywords
+          return (isNumber && expNumber <= 2) || 
+                 expString.includes('entry') || 
+                 expString.includes('junior');
         } else if (filters.experience === 'mid') {
-          return String(jobExp).toLowerCase().includes('mid') ||
-                 (Number(jobExp) > 2 && Number(jobExp) <= 5);
+          // Mid level: 3-5 years OR contains mid-level keywords
+          return (isNumber && expNumber > 2 && expNumber <= 5) || 
+                 expString.includes('mid');
         } else if (filters.experience === 'senior') {
-          return String(jobExp).toLowerCase().includes('senior') ||
-                 (Number(jobExp) > 5);
+          // Senior level: 6+ years OR contains senior-level keywords
+          return (isNumber && expNumber > 5) || 
+                 expString.includes('senior');
         }
         return true;
       });

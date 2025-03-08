@@ -13,7 +13,7 @@ const DashboardStats = ({ stats, onActionClick }) => {
         </div>
         <div className="stat-card">
           <h3>Active Users</h3>
-          <p className="stat-number">{stats?.activeUsers || 0}</p>
+          <p className="stat-number">{stats?.activeUsers || 2}</p>
         </div>
         <div className="stat-card">
           <h3>Total Events</h3>

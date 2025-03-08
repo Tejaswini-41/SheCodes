@@ -68,49 +68,82 @@ const AdminJobsManager = ({ user, token }) => {
     }
   };
 
-  // Update handleSubmit function
+  // Add this function to validate the form before submission
+  const validateForm = () => {
+    const errors = {};
+    
+    if (!jobForm.company) errors.company = 'Company name is required';
+    if (!jobForm.role) errors.role = 'Job role is required';
+    if (!jobForm.location) errors.location = 'Job location is required';
+    if (!jobForm.description) errors.description = 'Job description is required';
+    if (!jobForm.applyLink) errors.applyLink = 'Application link is required';
+    
+    return errors;
+  };
+
+  // Update handleSubmit to use validation
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate form
+    const formErrors = validateForm();
+    
+    if (Object.keys(formErrors).length > 0) {
+      // Show validation errors
+      let errorMessage = 'Please fix the following errors:\n';
+      Object.keys(formErrors).forEach(field => {
+        errorMessage += `- ${formErrors[field]}\n`;
+      });
+      alert(errorMessage);
+      return;
+    }
+    
     setLoading(true);
     
     try {
       const formData = { ...jobForm };
       
-      // Convert skills from comma-separated string to array
-      if (typeof formData.skills === 'string') {
-        formData.skills = formData.skills.split(',').map(skill => skill.trim()).filter(Boolean);
+      // Make sure applyLink exists
+      if (!formData.applyLink || formData.applyLink.trim() === '') {
+        formData.applyLink = `https://careers.example.com/${formData.company.toLowerCase().replace(/\s+/g, '-')}`;
       }
       
+      // Convert skills from comma-separated string to array
+      if (typeof formData.skills === 'string') {
+        formData.skills = formData.skills.split(',').map(skill => skill.trim());
+      }
+      
+      // Add source field to indicate it's a manual entry
+      formData.source = 'manual';
+      
+      console.log('Submitting job data:', formData);
+      
       if (editingJob) {
-        // Update existing job
         await apiRequest('put', `${API_ENDPOINTS.JOBS}/${editingJob._id}`, formData, token);
         alert('Job updated successfully!');
       } else {
-        // Create new job
         await apiRequest('post', API_ENDPOINTS.JOBS, formData, token);
         alert('Job created successfully!');
       }
       
-      // Reset form and refresh jobs
+      setShowJobForm(false);
+      setEditingJob(null);
       setJobForm({
         company: '',
         role: '',
         location: '',
         type: 'Full-time',
-        experience: '',
+        experience: '2',
         skills: '',
-        logo: '',
-        category: 'engineering',
         description: '',
-        url: '',
-        salary: ''
+        category: 'General',
+        applyLink: '',
+        logo: ''
       });
-      setShowJobForm(false);
-      setEditingJob(null);
       fetchJobs();
     } catch (error) {
       console.error('Error saving job:', error);
-      alert('Failed to save job');
+      alert('Failed to save job. Please check all required fields.');
     } finally {
       setLoading(false);
     }
@@ -121,7 +154,9 @@ const AdminJobsManager = ({ user, token }) => {
     setJobForm({
       ...job,
       // Convert array back to comma-separated string for the form
-      skills: Array.isArray(job.skills) ? job.skills.join(', ') : job.skills
+      skills: Array.isArray(job.skills) ? job.skills.join(', ') : job.skills,
+      // Make sure applyLink is always set
+      applyLink: job.applyLink || ''
     });
     setShowJobForm(true);
   };
@@ -332,17 +367,6 @@ const AdminJobsManager = ({ user, token }) => {
                   />
                 </div>
                 
-                <div className="form-group">
-                  <label>Application URL</label>
-                  <input 
-                    type="url" 
-                    name="url" 
-                    value={jobForm.url} 
-                    onChange={handleInputChange}
-                    placeholder="https://example.com/apply"
-                  />
-                </div>
-
                 <div className="form-group">
                   <label htmlFor="applyLink">Application Link</label>
                   <input

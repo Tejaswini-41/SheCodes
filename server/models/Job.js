@@ -19,9 +19,8 @@ const jobSchema = new mongoose.Schema({
     default: 'Full-time'
   },
   experience: {
-    type: String,
-    // enum: ['Entry Level', 'Mid Level', 'Senior Level'],
-    default: 2
+    type: mongoose.Schema.Types.Mixed, // Accept both string and number
+    default: '2'
   },
   skills: {
     type: [String],
@@ -41,7 +40,16 @@ const jobSchema = new mongoose.Schema({
   },
   applyLink: {
     type: String,
-    required: true
+    required: function() {
+      // Only require applyLink for manual entries
+      return this.source === 'manual';
+    },
+    default: function() {
+      // Generate a default link based on company name
+      return this.company ? 
+        `https://careers.example.com/${this.company.toLowerCase().replace(/\s+/g, '-')}` : 
+        'https://example.com/apply';
+    }
   },
   source: {
     type: String,

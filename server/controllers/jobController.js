@@ -64,20 +64,37 @@ export const getJobs = async (req, res) => {
 // Create new job
 export const createJob = async (req, res) => {
   try {
-    const jobData = req.body;
+    console.log('Creating job with data:', req.body);
     
-    // Create new job
-    const job = new Job({
-      ...jobData,
-      postedDate: new Date()
+    // Ensure all required fields are present and add defaults if needed
+    const jobData = {
+      ...req.body,
+      // Add a default applyLink if not provided
+      applyLink: req.body.applyLink || `https://careers.example.com/${req.body.company}`,
+    };
+    
+    // Convert string skills to array if needed
+    if (typeof jobData.skills === 'string') {
+      jobData.skills = jobData.skills.split(',').map(skill => skill.trim());
+    }
+    
+    // Create the job
+    const job = await Job.create(jobData);
+    
+    console.log('Job created successfully:', job);
+    
+    res.status(201).json({
+      success: true,
+      job,
+      message: 'Job created successfully'
     });
-    
-    // Save to database
-    const savedJob = await job.save();
-    return res.status(201).json(savedJob);
   } catch (error) {
     console.error('Error creating job:', error);
-    return res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error', 
+      error: error.message 
+    });
   }
 };
 

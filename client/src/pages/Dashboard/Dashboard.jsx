@@ -11,12 +11,18 @@ const Dashboard = () => {
   const [currentThoughtIndex, setCurrentThoughtIndex] = useState(0);
   const featuresScrollRef = useRef(null);
   
-  const dailyThoughts = [
-    { quote: "The question isn't who's going to let me; it's who is going to stop me.", author: "Ayn Rand" },
-    { quote: "I have learned over the years that when one's mind is made up, this diminishes fear.", author: "Rosa Parks" },
-    { quote: "We need to accept that we won't always make the right decisions, that we'll screw up royally sometimes.", author: "Arianna Huffington" },
-    { quote: "Think like a queen. A queen is not afraid to fail.", author: "Oprah Winfrey" },
-    { quote: "We need to reshape our own perception of how we view ourselves.", author: "Beyoncé" },
+  const dailyThoughts = [    
+    // New quotes
+    { quote: "I raise up my voice—not so that I can shout, but so that those without a voice can be heard.", author: "Malala Yousafzai" },
+    { quote: "The most difficult thing is the decision to act. The rest is merely tenacity.", author: "Amelia Earhart" },
+    { quote: "We cannot all succeed when half of us are held back.", author: "Malala Yousafzai" },
+    { quote: "A woman with a voice is, by definition, a strong woman.", author: "Melinda Gates" },
+    { quote: "I'm not afraid of storms, for I'm learning how to sail my ship.", author: "Louisa May Alcott" },
+    { quote: "The most common way people give up their power is by thinking they don't have any.", author: "Alice Walker" },
+    { quote: "You don't have to be pretty. You don't owe prettiness to anyone.", author: "Erin McKean" },
+    { quote: "Life shrinks or expands in proportion to one's courage.", author: "Anais Nin" },
+    { quote: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" },
+    { quote: "I do not wish women to have power over men; but over themselves.", author: "Mary Wollstonecraft" },
   ];
 
   const leadingLadies = [

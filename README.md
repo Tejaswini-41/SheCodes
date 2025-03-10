@@ -47,6 +47,39 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 - **Admin Dashboard**: Comprehensive management of platform content
 - **Mobile Responsive**: Optimized experience across devices
 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/dashboard.png" width="48" height="48"/><br />
+        <b>Dashboard</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/conference-call.png" width="48" height="48"/><br />
+        <b>Community</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/shield.png" width="48" height="48"/><br />
+        <b>Safety</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/money-bag.png" width="48" height="48"/><br />
+        <b>Finance</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/mentor.png" width="48" height="48"/><br />
+        <b>Mentorship</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/laptop-coding.png" width="48" height="48"/><br />
+        <b>Tech Jobs</b>
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -67,14 +100,37 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 
 ## 📷 Screenshots
 
-<div align="center"> 
-  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=880" alt="Women in Tech" width="45%"/> 
-  <img src="https://images.unsplash.com/photo-1574144113084-b6f450cc5e0d?q=80&w=880" alt="Community Discussion" width="45%"/> 
-</div>
-
-<div align="center"> 
-  <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=880" alt="Financial Education" width="45%"/> 
-  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=880" alt="Mentorship" width="45%"/> 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/dashboard.png" width="48" height="48"/><br />
+        <b>Dashboard</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/conference-call.png" width="48" height="48"/><br />
+        <b>Community</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/shield.png" width="48" height="48"/><br />
+        <b>Safety</b>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/money-bag.png" width="48" height="48"/><br />
+        <b>Finance</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/mentor.png" width="48" height="48"/><br />
+        <b>Mentorship</b>
+      </td>
+      <td align="center" width="33%">
+        <img src="https://img.icons8.com/color/96/000000/laptop-coding.png" width="48" height="48"/><br />
+        <b>Tech Jobs</b>
+      </td>
+    </tr>
+  </table>
 </div>
 
 ## 🚀 Installation & Setup
@@ -84,6 +140,27 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 - MongoDB Account
 - Adzuna API Key (for job listings)
 
+### Server Setup
+```bash
+# Clone the repository
+git clone https://github.com/Tejaswini-41/SheCodes
+cd SheCodes
+
+# Install server dependencies
+cd server
+npm install
+
+# Create .env file in server directory with:
+# PORT=5000
+# MONGO_URI=your_mongodb_connection_string
+# JWT_SECRET=your_jwt_secret
+# ADZUNA_APP_ID=your_adzuna_app_id
+# ADZUNA_API_KEY=your_adzuna_api_key
+
+# Start the server
+npm start
+```
+
 ### Steps to Install
 
 1. Clone the repository
@@ -92,38 +169,34 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
    cd SheCodes
 
 2. Install server dependencies
-
-bash
-Copy
-Edit
-cd server
-npm install
+   ```bash
+      cd server
+      npm install
 
 3. Create .env file in the server directory with the following configuration:
+   ```bash
+      PORT=5000
+      MONGO_URI=your_mongodb_connection_string
+      JWT_SECRET=your_jwt_secret
+      ADZUNA_APP_ID=your_adzuna_app_id
+      ADZUNA_API_KEY=your_adzuna_api_key
 
-ini
-Copy
-Edit
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-ADZUNA_APP_ID=your_adzuna_app_id
-ADZUNA_API_KEY=your_adzuna_api_key
-
-4. Start the server
-npm start
+4. Start the server:
+   ```bash
+      npm start
 
 5. In the project root, navigate to the client directory and install client dependencies
-
-cd client
-npm install
+   ```bash
+      cd client
+      npm install
 
 6. Start the React application
-
-npm run dev
+   ```bash
+      npm run dev
 
 💻 Folder Structure
-EmpowerHer/
+
+SheCodes/
 │
 ├── server/                   # Backend Node.js/Express app
 │   ├── config/               # DB & configuration settings
@@ -206,4 +279,4 @@ All the women pioneers in tech who inspire this platform
 Adzuna API for job listing data
 Font Awesome for beautiful icons
 MongoDB Atlas for database hosting
-<p align="center">Made with ❤️ for women on Behalf of Womens Day</p> 
+<p align="center">Made with ❤️ for women on Behalf of Womens Day</p>

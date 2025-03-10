@@ -230,7 +230,10 @@ SheCodes/
         ├── App.jsx            # Main component
         └── main.jsx           # Entry point
 
+
+
 ## 👩‍💻 Key Components
+   ```
 
 ### Dashboard
 The dashboard provides users with a personalized experience including:

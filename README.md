@@ -51,29 +51,29 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
   <table>
     <tr>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/dashboard.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">📊</span><br />
         <b>Dashboard</b>
       </td>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/conference-call.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">👥</span><br />
         <b>Community</b>
       </td>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/shield.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">🛡️</span><br />
         <b>Safety</b>
       </td>
     </tr>
     <tr>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/money-bag.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">💰</span><br />
         <b>Finance</b>
       </td>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/mentor.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">👩‍🏫</span><br />
         <b>Mentorship</b>
       </td>
       <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/laptop-coding.png" width="48" height="48"/><br />
+        <span style="font-size: 36px;">💻</span><br />
         <b>Tech Jobs</b>
       </td>
     </tr>
@@ -194,7 +194,8 @@ npm start
    ```bash
       npm run dev
 
-💻 Folder Structure
+## 📁 Folder Structure
+
 
 SheCodes/
 │
@@ -228,38 +229,35 @@ SheCodes/
         ├── App.jsx            # Main component
         └── main.jsx           # Entry point
 
-👩‍💻 Key Components
+## 👩‍💻 Key Components
 
-Dashboard
+### Dashboard
 The dashboard provides users with a personalized experience including:
-Daily inspirational quotes from women leaders
-Latest job opportunities
+- Daily inspirational quotes from women leaders
+- Latest job opportunities
+- Upcoming events
+- Recommended learning resources
 
-Upcoming events
-Recommended learning resources
-
-Safety Resources
+### Safety Resources
 A comprehensive section offering:
-Information on legal rights specific to women in the workplace
+- Information on legal rights specific to women in the workplace
+- Emergency contacts and safety tips
+- Self-defense tutorial videos
+- State-specific legal information
 
-Emergency contacts and safety tips
-Self-defense tutorial videos
-State-specific legal information
-
-Finance Education
+### Finance Education
 Interactive financial education tools including:
-Budgeting calculator based on the 50/30/20 rule
+- Budgeting calculator based on the 50/30/20 rule
+- Investment guidance and tips
+- Banking essentials
+- Success stories from women who achieved financial independence
 
-Investment guidance and tips
-Banking essentials
-Success stories from women who achieved financial independence
-
-Community Discussions
+### Community Discussions
 A space for women to connect and share experiences:
-Topic-based discussion threads
-Professional networking opportunities
-Ability to create and join conversations
-Knowledge sharing across tech domains
+- Topic-based discussion threads
+- Professional networking opportunities
+- Ability to create and join conversations
+- Knowledge sharing across tech domains
 
 🤝 Contributing
 We welcome contributions to EmpowerHer! To contribute:

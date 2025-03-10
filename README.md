@@ -68,13 +68,13 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 ## 📷 Screenshots
 
 <div align="center"> 
-  <img src="https://i.imgur.com/XYZ123.png" alt="Dashboard" width="45%"/> 
-  <img src="https://i.imgur.com/ABC456.png" alt="Community" width="45%"/> 
-</div> 
+  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=880" alt="Women in Tech" width="45%"/> 
+  <img src="https://images.unsplash.com/photo-1574144113084-b6f450cc5e0d?q=80&w=880" alt="Community Discussion" width="45%"/> 
+</div>
 
 <div align="center"> 
-  <img src="https://i.imgur.com/DEF789.png" alt="Safety" width="45%"/> 
-  <img src="https://i.imgur.com/GHI101.png" alt="Finance" width="45%"/> 
+  <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=880" alt="Financial Education" width="45%"/> 
+  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=880" alt="Mentorship" width="45%"/> 
 </div>
 
 ## 🚀 Installation & Setup
@@ -88,8 +88,8 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/empowerher.git
-   cd empowerher
+   git clone https://github.com/Tejaswini-41/SheCodes
+   cd SheCodes
 
 2. Install server dependencies
 
@@ -206,4 +206,4 @@ All the women pioneers in tech who inspire this platform
 Adzuna API for job listing data
 Font Awesome for beautiful icons
 MongoDB Atlas for database hosting
-<p align="center">Made with ❤️ for women in technology</p> ```
+<p align="center">Made with ❤️ for women on Behalf of Womens Day</p> 

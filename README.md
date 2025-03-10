@@ -195,7 +195,8 @@ npm start
       npm run dev
 
 ## 📁 Folder Structure
-
+   
+   ```bash
 
 SheCodes/
 │

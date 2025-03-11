@@ -98,40 +98,6 @@ EmpowerHer is a comprehensive web platform designed to bridge the gender gap in 
 - **Adzuna API**: Integration for job listings
 - **YouTube Embeds**: Educational video content
 
-## 📷 Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/dashboard.png" width="48" height="48"/><br />
-        <b>Dashboard</b>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/conference-call.png" width="48" height="48"/><br />
-        <b>Community</b>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/shield.png" width="48" height="48"/><br />
-        <b>Safety</b>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/money-bag.png" width="48" height="48"/><br />
-        <b>Finance</b>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/mentor.png" width="48" height="48"/><br />
-        <b>Mentorship</b>
-      </td>
-      <td align="center" width="33%">
-        <img src="https://img.icons8.com/color/96/000000/laptop-coding.png" width="48" height="48"/><br />
-        <b>Tech Jobs</b>
-      </td>
-    </tr>
-  </table>
-</div>
 
 ## 🚀 Installation & Setup
 
